@@ -1,0 +1,6 @@
+.vertice {
+    width: 250px;
+    height: 250px;
+    outline: solid red 1px;
+    display: inline-block;
+}
