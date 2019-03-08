@@ -1,6 +1,28 @@
 .vertice {
+    border: solid black 1px;
+    border-radius: 50%;
+    
+    width: 50px;
+    height: 50px;
+
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
+.vertice-clicado {
+    background-color: #000 !important;
+}
+
+.grade {    
     width: 250px;
     height: 250px;
-    outline: solid red 1px;
     display: inline-block;
+}
+
+.linha {
+    display: flex;
+}
+
+.aresta {
+    background-color: red;
 }
