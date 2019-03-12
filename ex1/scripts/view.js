@@ -72,6 +72,9 @@ const limparTela = () => {
     while ($grafo.firstChild) {
         $grafo.removeChild($grafo.firstChild);
     }
+    while ($svg.firstChild) {
+        $svg.removeChild($svg.firstChild);
+    }
 }
 
 const iniciar = () => {
