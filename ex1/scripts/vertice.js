@@ -20,8 +20,6 @@ class Vertice extends Subject {
     }
 
     _toggleEstado(){
-        if (this.estado.TRAVADO) return
-
         this.$ponto.classList.toggle(verticeClicadoClass)
 
         // altera estado
@@ -31,17 +29,9 @@ class Vertice extends Subject {
         super.notify(this)        
     }
 
-    travar(){
+    estadoPadrao(){
         this.$ponto.className = ''
-        this.$ponto.classList.add(classVerticeTravado)
         this.$ponto.classList.add(classVertice)
-        console.log(this.$ponto.classList)
-        this.estado = estadoVertice.TRAVADO
-    }
-
-    destravar(){
-        this.$ponto.className = ''
-        this.$ponto.classList.add('vertice')
         this.estado = estadoVertice.VAZIO
     }
 
@@ -56,7 +46,7 @@ class Vertice extends Subject {
         $vertice.y = y
         $vertice.nome = this.proximoNome()
     
-        $vertice.addEventListener('click', () => {
+        $vertice.addEventListener('click', event => {
             this._toggleEstado()
         })
     

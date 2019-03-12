@@ -6,6 +6,10 @@ const classVertice = 'vertice'
 const setWidth = ($element, width) => $element.style.width = width
 const setHeight = ($element, height) => $element.style.height = height
 const setAngle = ($element, rad) => $element.style.transform = `rotate(${rad}rad)`
+const setPosition = ($element, { x, y }) => { 
+    $element.style.left = x
+    $element.style.top = y
+}
 
 const GrafoTest = [
     [0, 1, 0, 0, 1, 1, 0, 0],
@@ -39,6 +43,5 @@ const geradorNomes = () => {
 
 const estadoVertice = {
     VAZIO: 'VAZIO',
-    CLICADO: 'CLICADO',
-    TRAVADO: 'TRAVADO'
+    CLICADO: 'CLICADO'
 }

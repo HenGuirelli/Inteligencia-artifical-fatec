@@ -23,9 +23,26 @@ class Grafo extends Observer {
         }
 
         if (this.verticesSelecionados.length === 2){
-            console.log('cria aresta')
+            const vertice1 = this.verticesSelecionados[0]
+            const vertice2 = this.verticesSelecionados[1]
+            
+            const posicaoVertice1 = vertice1.pegarPosicao() 
+            const posicaoVertice2 = vertice2.pegarPosicao()
 
-            this.verticesSelecionados.forEach(vertice => vertice.travar())
+            const pos = { 
+                x1: posicaoVertice1.x, 
+                x2: posicaoVertice2.x,
+                y1: posicaoVertice1.y, 
+                y2: posicaoVertice2.y
+            }
+
+            const aresta = new Edge(vertice1.$ponto, {
+                vertice1,
+                vertice2
+            })
+            aresta.place({ ...pos })
+
+            this.verticesSelecionados.forEach(vertice => vertice.estadoPadrao())
             this.verticesSelecionados = []
         }
     }

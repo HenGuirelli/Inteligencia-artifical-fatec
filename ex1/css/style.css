@@ -12,13 +12,10 @@ svg, svg * {
     
     width: 50px;
     height: 50px;
-
-    margin: 0 auto;
-    margin-top: 100px;
 }
 
 .vertice-clicado {
-    background-color: gray !important;
+    outline: solid red 1px;
 }
 
 .vertice-travado {
@@ -26,8 +23,7 @@ svg, svg * {
 }
 
 .grade {    
-    width: 250px;
-    height: 250px;
+    margin: 125px;
     display: inline-block;
 }
 
@@ -38,6 +34,12 @@ svg, svg * {
 .edge {
     background-color: red;
     position: absolute;
-    /* transform: rotate(1.6rad); */
-    /* transform-origin: top left; */
+}
+
+.btn-excluir {
+    display: none
+}
+
+.btn-excluir-visivel {
+    display: block !important
 }

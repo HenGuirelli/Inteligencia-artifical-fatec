@@ -1,16 +1,45 @@
 'use strict'
 
 class Edge {
-    constructor($root){
-        this.$edge = this.createEdge()
+    constructor($root, { vertice1, vertice2 }){
         this.$root = $root
+        this.$aresta = this.criarAresta()
+        this.$btnExcluir = this.criarBotaoExcluir()
+        this.$aresta.appendChild(this.$btnExcluir)
+
+        this.vertice1 = vertice1
+        this.vertice2 = vertice2
     }
 
-    createEdge(){
-        const $edge = document.createElement('div')
-        $edge.classList.add(classEdge)
-        $edge.style.transformOrigin = 'top left'
-        return $edge
+    criarBotaoExcluir() {
+        const $btn = document.createElement('button')
+        $btn.innerText = 'x'
+        $btn.classList.add('btn-excluir')
+
+        $btn.addEventListener('click', event => {
+            this.excluir()
+        })
+        return $btn
+    }
+
+    excluir(){
+        this.$aresta.remove()
+    }
+
+    criarAresta(){
+        const $aresta = document.createElement('div')
+        $aresta.classList.add(classEdge)
+        $aresta.style.transformOrigin = 'top left'
+
+        $aresta.addEventListener('mouseover', () => {
+            this.$btnExcluir.classList.add('btn-excluir-visivel')
+        })
+        $aresta.addEventListener('mouseout', () => {
+            this.$btnExcluir.classList.remove('btn-excluir-visivel')
+        })
+        
+
+        return $aresta
     }
 
     calcDistance({ x1, x2, y1, y2 }) {
@@ -24,11 +53,12 @@ class Edge {
     place({ x1, x2, y1, y2 }){
         const distance = this.calcDistance({ x1, x2, y1, y2 })
 
-        setWidth(this.$edge, distance)
-        setHeight(this.$edge, 5)
+        setWidth(this.$aresta, distance)
+        setHeight(this.$aresta, 5)
 
-        setAngle(this.$edge, this.calcAngle({ x1, x2, y1, y2 }))
-        this.$root.appendChild(this.$edge)
+        setAngle(this.$aresta, this.calcAngle({ x1, x2, y1, y2 }))
+        setPosition(this.$aresta, { x: x1, y: y1 })
+        this.$root.appendChild(this.$aresta)
     }
 }
 
