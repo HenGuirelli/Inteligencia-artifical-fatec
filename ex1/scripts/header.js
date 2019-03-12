@@ -3,6 +3,7 @@ const classEdge = 'edge'
 const classVerticeTravado = 'vertice-travado'
 const classVertice = 'vertice'
 
+
 const setWidth = ($element, width) => $element.style.width = width
 const setHeight = ($element, height) => $element.style.height = height
 const setAngle = ($element, rad) => $element.style.transform = `rotate(${rad}rad)`
@@ -24,6 +25,8 @@ const GrafoTest = [
 
 const $grafo = document.querySelector('#grafo')
 const $txtColunas = document.querySelector('#txtColunas')
+const qtdVertice = parseInt($txtColunas.value * 2)
+
 const geradorNomes = () => {
     let letra = [65]
     return () => {

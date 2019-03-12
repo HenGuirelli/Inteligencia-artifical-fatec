@@ -106,6 +106,17 @@ class Grafo extends Observer {
     }
 
     pegarMatrizAdjacentes(){
-
+        const result = []
+        const vertices = new Array(...this.vertices)
+        for (let i = 0; i < vertices.length; i++){
+            const vertice = vertices[i]
+            const restanteVetor = vertices.slice(i, vertices.length)
+            const linha = []
+            for (let j = i; j < vertices.length; j++){
+                if (vertices[j].nome === vertice.nome){
+                    linha.push(0)
+                }
+            }
+        }
     }
 }

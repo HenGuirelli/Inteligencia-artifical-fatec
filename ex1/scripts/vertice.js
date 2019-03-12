@@ -29,6 +29,10 @@ class Vertice extends Subject {
         return this.filhos.filter(vertice => vertice.nome === nome)[0]
     }
 
+    _filhoExiste(vertice){
+        return this.filhos.filter(v => v.nome === vertice.nome).length > 0
+    }
+
     pegarEstado(){
         return this.estado
     }
