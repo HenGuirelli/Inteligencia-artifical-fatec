@@ -9,11 +9,19 @@
         <input type="number" name="txtColunas" id="txtColunas">
         <button onclick="iniciar()"> Confirmar </button>
 
-        <div id="grafo"></div>
-        <br />
-        <svg height="5000" width="5000" id="svg"></svg>
-              
+        <div id="grafo"></div>              
     </body>
 
-    <script src='scripts/view.js'></script>
+    <script src='scripts/header.js'></script>
+    <script src='scripts/vertice.js'></script>
+    <script src='scripts/grafo.js'></script>
+    <script src='scripts/edge.js'></script>
+
+    <script type='text/javascript'>
+        const grafo = new Grafo($grafo)
+        function iniciar() {
+            grafo.limpar()
+            grafo.criar({ numColunas: $txtColunas.value })
+        }
+    </script>
 </html>
