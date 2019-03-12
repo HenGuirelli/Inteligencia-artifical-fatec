@@ -51,3 +51,8 @@ const estadoVertice = {
     VAZIO: 'VAZIO',
     CLICADO: 'CLICADO'
 }
+
+const expedidor = {
+    VERTICE: 'VERTICE',
+    ARESTA: 'ARESTA'
+}

@@ -1,12 +1,13 @@
 'use strict'
 
 class Vertice extends Subject {
-    constructor($root, { x, y }){
+    constructor($root, { x, y, nome }){
         super()
-        this.proximoNome = geradorNomes()
+        this.nome = nome
         this.$root = $root
         this.$vertice = this.criarVertice({ x, y })
         this.$ponto = this.$vertice.firstChild
+        this.filhos = []
 
         this.x = x
         this.y = y
@@ -26,7 +27,7 @@ class Vertice extends Subject {
         this.estado = this.estado === estadoVertice.VAZIO ? estadoVertice.CLICADO : estadoVertice.VAZIO
 
         // notify all
-        super.notify(this)        
+        super.notify({ obj: this, expedidor: expedidor.VERTICE })        
     }
 
     estadoPadrao(){
@@ -38,19 +39,22 @@ class Vertice extends Subject {
     criarVertice({ x, y }) {
         const $grade = document.createElement('div')
         const $vertice = document.createElement('div')
+        const $nome = document.createElement('span')
+        $nome.classList.add('nome-vertice')
+        $nome.innerText = this.nome
     
         $grade.classList.add('grade')
         $vertice.classList.add('vertice')
     
         $vertice.x = x
         $vertice.y = y
-        $vertice.nome = this.proximoNome()
     
         $vertice.addEventListener('click', event => {
             this._toggleEstado()
         })
     
         $grade.appendChild($vertice)
+        $vertice.appendChild($nome)
         return $grade
     }
 

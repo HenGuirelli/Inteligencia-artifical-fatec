@@ -4,6 +4,7 @@ class Grafo extends Observer {
     constructor($grafo){
         super()
         this.$root = $grafo
+        this.proximoNome = geradorNomes()
         this.vertices = []
         this.arestas = []
         this.$linha1 = this.criarNovaLinha()
@@ -12,9 +13,20 @@ class Grafo extends Observer {
         this.linhas = [this.$linha1, this.$linha2]
 
         this.verticesSelecionados = []
+
+        this._agirParaExpedidores = { 
+            [expedidor.VERTICE]: this._updateVertice.bind(this),
+            [expedidor.ARESTA]: this._updateAresta.bind(this)
+        }
     }
 
-    update(obj){
+    _updateAresta(obj){
+        // metodo chamado apenas quando aresta é excluida
+        console.log()
+        this.arestas.splice(this.arestas.indexOf(obj))
+    }
+
+    _updateVertice(obj){
         if (obj.pegarEstado() === estadoVertice.CLICADO){
             this.verticesSelecionados.push(obj)
         }else{
@@ -29,7 +41,8 @@ class Grafo extends Observer {
 
             const aresta = new Aresta(vertice1.$ponto, {
                 vertice1,
-                vertice2
+                vertice2,
+                onExcluir: this.excluirAresta
             })
             aresta.place()
             this.arestas.push(aresta)
@@ -37,6 +50,11 @@ class Grafo extends Observer {
             this.verticesSelecionados.forEach(vertice => vertice.estadoPadrao())
             this.verticesSelecionados = []
         }
+    }
+
+    update({ obj, expedidor }){
+        this._agirParaExpedidores[expedidor](obj)
+        console.log(this.arestas)
     }
 
     criarNovaLinha() {
@@ -48,7 +66,7 @@ class Grafo extends Observer {
     criarLinha({ linhaIndex, numColunas }) {
         const $linha = this.linhas[linhaIndex]
         for (let i = 0; i < numColunas; i++){
-            let vertice = new Vertice(i, { x: i, y: linhaIndex })
+            let vertice = new Vertice(i, { x: i, y: linhaIndex, nome: this.proximoNome() })
             
             // adiciona vertice na linha especificada
             // sempre ao lado direito
@@ -67,5 +85,9 @@ class Grafo extends Observer {
         this.$root.innerHTML = ''
         this.$linha1.innerHTML = ''
         this.$linha2.innerHTML = ''
+    }
+
+    pegarMatrizAdjacentes(){
+
     }
 }

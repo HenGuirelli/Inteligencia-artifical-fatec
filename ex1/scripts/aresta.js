@@ -1,7 +1,8 @@
 'use strict'
 
-class Aresta {
+class Aresta extends Subject {
     constructor($root, { vertice1, vertice2 }){
+        super()
         this.$root = $root
         this.$aresta = this.criarAresta()
         this.$btnExcluir = this.criarBotaoExcluir()
@@ -29,6 +30,8 @@ class Aresta {
 
         this.tipoPosicao = this._pegarTipoPosicao(this.indexes)
         this.pega = this._pegarPeso()
+
+        super.attach(grafo)
     }
     _pegarPeso(){
         return this.tipoPosicao === posicaoAresta.DIAGONAL ? Math.sqrt(2) : 1
@@ -51,12 +54,16 @@ class Aresta {
         $btn.addEventListener('click', event => {
             event.stopPropagation()
             this.excluir()
+
+            // notifica alteração de estado
+            super.notify({ obj: this, expedidor: expedidor.ARESTA })
         })
         return $btn
     }
 
     excluir(){
         this.$aresta.remove()
+        //this.onExcluir({ aresta: this })
     }
 
     criarAresta(){

@@ -43,3 +43,8 @@ svg, svg * {
 .btn-excluir-visivel {
     display: block !important
 }
+
+.nome-vertice {
+    margin-top: -10px;
+    margin-left: -10px;
+}
