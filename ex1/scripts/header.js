@@ -15,3 +15,19 @@ const GrafoTest = [
 
 const $grafo = document.querySelector('#grafo')
 const $txtColunas = document.querySelector('#txtColunas')
+const geradorNomes = () => {
+    let letra = [65]
+    return () => {
+    	let resultado = ''
+    	for (let i = 0; i < letra.length; i++){
+        	resultado += String.fromCharCode(letra[i])
+        }
+        letra[letra.length - 1] = letra[letra.length - 1] + 1
+        if (letra[letra.length - 1] >= 90) {
+            letra[letra.length - 1] = 65
+        	letra.push(65)
+        }
+
+        return resultado
+    }
+}
