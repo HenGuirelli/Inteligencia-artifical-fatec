@@ -1,6 +1,6 @@
 'use strict'
 
-class Edge {
+class Aresta {
     constructor($root, { vertice1, vertice2 }){
         this.$root = $root
         this.$aresta = this.criarAresta()

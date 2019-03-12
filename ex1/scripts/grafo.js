@@ -5,6 +5,7 @@ class Grafo extends Observer {
         super()
         this.$root = $grafo
         this.vertices = []
+        this.arestas = []
         this.$linha1 = this.criarNovaLinha()
         this.$linha2 = this.criarNovaLinha()
 
@@ -25,7 +26,7 @@ class Grafo extends Observer {
         if (this.verticesSelecionados.length === 2){
             const vertice1 = this.verticesSelecionados[0]
             const vertice2 = this.verticesSelecionados[1]
-            
+
             const posicaoVertice1 = vertice1.pegarPosicao() 
             const posicaoVertice2 = vertice2.pegarPosicao()
 
@@ -36,7 +37,7 @@ class Grafo extends Observer {
                 y2: posicaoVertice2.y
             }
 
-            const aresta = new Edge(vertice1.$ponto, {
+            const aresta = new Aresta(vertice1.$ponto, {
                 vertice1,
                 vertice2
             })
@@ -67,7 +68,6 @@ class Grafo extends Observer {
     }
 
     criar({ numColunas }){
-        console.log('grafo.criar')
         this.criarLinha({ linhaIndex: 0, numColunas })
         this.criarLinha({ linhaIndex: 1, numColunas })
     }
