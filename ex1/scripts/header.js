@@ -1,3 +1,6 @@
+const verticeClicadoClass = 'vertice-clicado'
+const classEdge = 'edge'
+
 const setWidth = ($element, width) => $element.style.width = width
 const setHeight = ($element, height) => $element.style.height = height
 const setAngle = ($element, rad) => $element.style.transform = `rotate(${rad}rad)`

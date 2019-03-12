@@ -1,5 +1,4 @@
 'use strict'
-const classEdge = 'edge'
 
 class Edge {
     constructor($root){

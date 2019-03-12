@@ -1,10 +1,37 @@
+'use strict'
 
-class Vertice {
+const estado = {
+    VAZIO: 'VAZIO',
+    CLICADO: 'CLICADO'
+}
+
+class Vertice extends Subject {
     constructor($root, { x, y }){
+        super()
         this.proximoNome = geradorNomes()
         this.$root = $root
         this.$vertice = this.criarVertice({ x, y })
         this.$ponto = this.$vertice.firstChild
+
+        this.x = x
+        this.y = y
+        
+        this.estado = estado.VAZIO
+        super.attach(grafo)
+    }
+
+    pegarEstado(){
+        return this.estado
+    }
+
+    _toggleEstado(){
+        this.$ponto.classList.toggle(verticeClicadoClass)
+
+        // altera estado
+        this.estado = this.estado === estado.VAZIO ? estado.CLICADO : estado.VAZIO
+
+        // notify all
+        super.notify(this)        
     }
 
     criarVertice({ x, y }) {
@@ -18,9 +45,8 @@ class Vertice {
         $vertice.y = y
         $vertice.nome = this.proximoNome()
     
-        $vertice.addEventListener('click', (event, callback) => {
-            console.log('clicad - x: ', x, ' y: ', y)
-            console.log(event, callback)
+        $vertice.addEventListener('click', () => {
+            this._toggleEstado()
         })
     
         $grade.appendChild($vertice)
