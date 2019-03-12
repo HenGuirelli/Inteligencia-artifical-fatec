@@ -6,10 +6,11 @@ class Grafo extends Observer {
         this.$root = $grafo
         this.proximoNomeVertice = geradorNomes()
         this.proximoNomeAresta  = geradorNomes()
-        this.vertices = []
         this.arestas = []
         this.$linha1 = this.criarNovaLinha()
         this.$linha2 = this.criarNovaLinha()
+
+        this.grafo = new GrafoModel()
 
         this.linhas = [this.$linha1, this.$linha2]
 
@@ -27,18 +28,17 @@ class Grafo extends Observer {
 
     _removerAresta(aresta){
         const arestaEliminada = this._pegarArestaPeloNome(aresta.nome)
-        const vertice1 = arestaEliminada.vertice1
-        const vertice2 = arestaEliminada.vertice2
-
-        vertice1.removerFilho(vertice2)
-        vertice2.removerFilho(vertice1)
-
         return this.arestas.filter(aresta => aresta.nome !== arestaEliminada.nome )
     }
 
     _updateAresta(obj){
         // metodo chamado apenas quando aresta é excluida    
         this.arestas = this._removerAresta(obj)
+        const verticeModel1 = pegarItemPorKey('nome', this.grafo.vertices, obj.aresta.vertice1.nome)
+        const verticeModel2 = pegarItemPorKey('nome', this.grafo.vertices, obj.aresta.vertice2.nome)
+
+        verticeModel1.removerFilho(verticeModel2)
+        verticeModel2.removerFilho(verticeModel1)
     }
 
     _updateVertice(obj){
@@ -62,16 +62,14 @@ class Grafo extends Observer {
             aresta.place()
             this.arestas.push(aresta)
 
-            vertice1.addFilho(vertice2)
-            vertice2.addFilho(vertice1)
-            console.log(vertice1)
-
             this.verticesSelecionados.forEach(vertice => vertice.estadoPadrao())
             this.verticesSelecionados = []
         }
     }
 
+
     update({ obj, expedidor }){
+        console.log(this.grafo)
         this._agirParaExpedidores[expedidor](obj)
     }
 
@@ -85,11 +83,11 @@ class Grafo extends Observer {
         const $linha = this.linhas[linhaIndex]
         for (let i = 0; i < numColunas; i++){
             let vertice = new Vertice(i, { x: i, y: linhaIndex, nome: this.proximoNomeVertice() })
+            this.grafo.addVertice(vertice.vertice)
             
             // adiciona vertice na linha especificada
             // sempre ao lado direito
             $linha.appendChild(vertice.$vertice)
-            this.vertices.push(vertice)
         }
         this.$root.appendChild($linha)
     }
@@ -105,18 +103,4 @@ class Grafo extends Observer {
         this.$linha2.innerHTML = ''
     }
 
-    pegarMatrizAdjacentes(){
-        const result = []
-        const vertices = new Array(...this.vertices)
-        for (let i = 0; i < vertices.length; i++){
-            const vertice = vertices[i]
-            const restanteVetor = vertices.slice(i, vertices.length)
-            const linha = []
-            for (let j = i; j < vertices.length; j++){
-                if (vertices[j].nome === vertice.nome){
-                    linha.push(0)
-                }
-            }
-        }
-    }
 }

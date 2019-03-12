@@ -13,10 +13,17 @@
     </body>
 
     <script src='scripts/observer.js'></script>
-    <script src='scripts/header.js'></script>
-    <script src='scripts/vertice.js'></script>
-    <script src='scripts/grafo.js'></script>
-    <script src='scripts/aresta.js'></script>
+
+    <!-- MODEL -->
+    <script src='scripts/model/aresta.js'></script>
+    <script src='scripts/model/vertice.js'></script>
+    <script src='scripts/model/grafo.js'></script>
+
+    <!-- MANIPULAÇÃO DE DOM -->
+    <script src='scripts/view/header.js'></script>
+    <script src='scripts/view/vertice.js'></script>
+    <script src='scripts/view/grafo.js'></script>
+    <script src='scripts/view/aresta.js'></script>
 
     <script type='text/javascript'>
         let grafo = undefined
@@ -24,7 +31,7 @@
             grafo = new Grafo($grafo)
             grafo.limpar()
             grafo.criar({ numColunas: $txtColunas.value })
-            console.log(grafo.pegarMatrizAdjacentes())
+            console.log(grafo.grafo.gerarMatrizAdjacentes())
         }
     </script>
 </html>

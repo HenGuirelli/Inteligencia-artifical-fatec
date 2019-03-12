@@ -4,14 +4,11 @@ class Aresta extends Subject {
     constructor($root, { vertice1, vertice2, nome }){
         super()
         this.$root = $root
+        this.nome = nome
         this.$aresta = this.criarAresta()
         this.$btnExcluir = this.criarBotaoExcluir()
         this.$aresta.appendChild(this.$btnExcluir)
-
-        this.nome = nome
-
-        this.vertice1 = vertice1
-        this.vertice2 = vertice2
+        this.aresta = new ArestaModel({ vertice1: vertice1.vertice, vertice2: vertice2.vertice })
 
         const posicaoVertice1 = vertice1.pegarPosicao() 
         const posicaoVertice2 = vertice2.pegarPosicao()
@@ -22,31 +19,8 @@ class Aresta extends Subject {
             y1: posicaoVertice1.y, 
             y2: posicaoVertice2.y
         }
-        
-        this.indexes = {
-            x1: vertice1.x, 
-            x2: vertice2.x,
-            y1: vertice1.y, 
-            y2: vertice2.y
-        }
-
-        this.tipoPosicao = this._pegarTipoPosicao(this.indexes)
-        this.pega = this._pegarPeso()
-
         super.attach(grafo)
-    }
-    _pegarPeso(){
-        return this.tipoPosicao === posicaoAresta.DIAGONAL ? Math.sqrt(2) : 1
-    }
-
-    _pegarTipoPosicao(indexes) {
-        if (indexes.y1 === indexes.y2)
-            return posicaoAresta.HORIZONTAL
-        else if (indexes.x1 === indexes.x2)
-            return posicaoAresta.VERTICAL
-        else
-            return posicaoAresta.DIAGONAL
-    }
+    }  
 
     criarBotaoExcluir() {
         const $btn = document.createElement('button')

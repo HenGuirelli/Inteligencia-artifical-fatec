@@ -44,6 +44,20 @@ const geradorNomes = () => {
     }
 }
 
+const pegarItemPorKey = (chave, vetor, valor) => {
+    return vetor.filter(filho => filho[chave] === valor)[0]
+}
+
+const removerItemPorKey = (chave, vetor, valor) => {
+    return vetor.filter(filho => filho[chave] !== valor)
+}
+
+const validarTipo = (obj, T) => {
+    if ( !(obj instanceof T) ){
+        throw "objeto incorredo espertado 'VerticeModel' recebido: " + typeof verticeModel
+    }
+}
+
 const posicaoAresta = {
     DIAGONAL: 'DIAGONAL',
     HORIZONTAL: 'HORIZONTAL',

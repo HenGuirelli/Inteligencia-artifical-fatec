@@ -4,44 +4,23 @@ class Vertice extends Subject {
     constructor($root, { x, y, nome }){
         super()
         this.nome = nome
+        this.vertice = new VerticeModel({ x, y, nome })
         this.$root = $root
         this.$vertice = this.criarVertice({ x, y })
         this.$ponto = this.$vertice.firstChild
-        this.filhos = []
-
-        this.x = x
-        this.y = y
         
-        this.estado = estadoVertice.VAZIO
         super.attach(grafo)
     }
 
-    addFilho(vertice){
-        this.filhos.push(vertice)
-    }
-
-    removerFilho(vertice){
-        const filhoRemover = this._pegarFilhoPeloNome(vertice.nome)
-        this.filhos = this.filhos.filter(vertice => vertice.nome !== filhoRemover.nome)
-    }
-
-    _pegarFilhoPeloNome(nome){
-        return this.filhos.filter(vertice => vertice.nome === nome)[0]
-    }
-
-    _filhoExiste(vertice){
-        return this.filhos.filter(v => v.nome === vertice.nome).length > 0
-    }
-
     pegarEstado(){
-        return this.estado
+        return this.vertice.estado
     }
 
     _toggleEstado(){
         this.$ponto.classList.toggle(verticeClicadoClass)
 
         // altera estado
-        this.estado = this.estado === estadoVertice.VAZIO ? estadoVertice.CLICADO : estadoVertice.VAZIO
+        this.vertice.estado = this.vertice.estado === estadoVertice.VAZIO ? estadoVertice.CLICADO : estadoVertice.VAZIO
 
         // notify all
         super.notify({ obj: this, expedidor: expedidor.VERTICE })        
@@ -50,7 +29,7 @@ class Vertice extends Subject {
     estadoPadrao(){
         this.$ponto.className = ''
         this.$ponto.classList.add(classVertice)
-        this.estado = estadoVertice.VAZIO
+        this.vertice.estado = estadoVertice.VAZIO
     }
 
     criarVertice({ x, y }) {

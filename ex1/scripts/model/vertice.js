@@ -6,26 +6,33 @@ class VerticeModel {
         
         this.filhos = []
         this.arestas = []
+        this.estado = estadoVertice.VAZIO
     }
 
-    _validarTipo(obj, T){
-        if ( !(obj instanceof T) ){
-            throw "objeto incorredo espertado 'VerticeModel' recebido: " + typeof verticeModel
-        }
-    }
+    mudarEstado(){
+        this.estado = this.estado === estadoVertice.VAZIO ? estadoVertice.CLICADO : estadoVertice.VAZIO
+    }    
 
     addFilho(verticeModel){
-        this._validarTipo(verticeModel, VerticeModel)
+        validarTipo(verticeModel, VerticeModel)
         this.filhos.push(verticeModel)
     }
 
-    removeFilho(verticeModel){
-        this._validarTipo(verticeModel, VerticeModel)
+    removerFilho(verticeModel){
+        validarTipo(verticeModel, VerticeModel)
         const filhoRemover = this._pegarFilhoPorNome(verticeModel.nome)
-        this.filhos = this.filhos.filter(f => f.nome !== filhoRemover.nome)
+        this.filhos = VerticeModel.removerFilhoPorNome(this.filhos, filhoRemover.nome)
     }
 
     _pegarFilhoPorNome(nome){
-        return this.filhos.filter(filho => filho.nome === nome)[0]
+        return VerticeModel.pegarFilhoPorNome(this.filhos, nome)
+    }
+
+    static pegarFilhoPorNome(vet, nome){
+        return pegarItemPorKey('nome', vet, nome)
+    }
+
+    static removerFilhoPorNome(vet, nome){
+        return removerItemPorKey('nome', vet, nome)
     }
 }
