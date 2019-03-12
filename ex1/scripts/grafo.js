@@ -27,21 +27,12 @@ class Grafo extends Observer {
             const vertice1 = this.verticesSelecionados[0]
             const vertice2 = this.verticesSelecionados[1]
 
-            const posicaoVertice1 = vertice1.pegarPosicao() 
-            const posicaoVertice2 = vertice2.pegarPosicao()
-
-            const pos = { 
-                x1: posicaoVertice1.x, 
-                x2: posicaoVertice2.x,
-                y1: posicaoVertice1.y, 
-                y2: posicaoVertice2.y
-            }
-
             const aresta = new Aresta(vertice1.$ponto, {
                 vertice1,
                 vertice2
             })
-            aresta.place({ ...pos })
+            aresta.place()
+            this.arestas.push(aresta)
 
             this.verticesSelecionados.forEach(vertice => vertice.estadoPadrao())
             this.verticesSelecionados = []

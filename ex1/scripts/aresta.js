@@ -9,6 +9,38 @@ class Aresta {
 
         this.vertice1 = vertice1
         this.vertice2 = vertice2
+
+        const posicaoVertice1 = vertice1.pegarPosicao() 
+        const posicaoVertice2 = vertice2.pegarPosicao()
+
+        this.posicao = { 
+            x1: posicaoVertice1.x, 
+            x2: posicaoVertice2.x,
+            y1: posicaoVertice1.y, 
+            y2: posicaoVertice2.y
+        }
+        
+        this.indexes = {
+            x1: vertice1.x, 
+            x2: vertice2.x,
+            y1: vertice1.y, 
+            y2: vertice2.y
+        }
+
+        this.tipoPosicao = this._pegarTipoPosicao(this.indexes)
+        this.pega = this._pegarPeso()
+    }
+    _pegarPeso(){
+        return this.tipoPosicao === posicaoAresta.DIAGONAL ? Math.sqrt(2) : 1
+    }
+
+    _pegarTipoPosicao(indexes) {
+        if (indexes.y1 === indexes.y2)
+            return posicaoAresta.HORIZONTAL
+        else if (indexes.x1 === indexes.x2)
+            return posicaoAresta.VERTICAL
+        else
+            return posicaoAresta.DIAGONAL
     }
 
     criarBotaoExcluir() {
@@ -17,6 +49,7 @@ class Aresta {
         $btn.classList.add('btn-excluir')
 
         $btn.addEventListener('click', event => {
+            event.stopPropagation()
             this.excluir()
         })
         return $btn
@@ -50,14 +83,15 @@ class Aresta {
         return Math.atan2((y2-y1), (x2-x1))
     }
 
-    place({ x1, x2, y1, y2 }){
-        const distance = this.calcDistance({ x1, x2, y1, y2 })
+    place(){
+
+        const distance = this.calcDistance({ ...this.posicao })
 
         setWidth(this.$aresta, distance)
         setHeight(this.$aresta, 5)
 
-        setAngle(this.$aresta, this.calcAngle({ x1, x2, y1, y2 }))
-        setPosition(this.$aresta, { x: x1, y: y1 })
+        setAngle(this.$aresta, this.calcAngle({ ...this.posicao }))
+        setPosition(this.$aresta, { x: this.posicao.x1, y: this.posicao.y1 })
         this.$root.appendChild(this.$aresta)
     }
 }

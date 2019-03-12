@@ -41,6 +41,12 @@ const geradorNomes = () => {
     }
 }
 
+const posicaoAresta = {
+    DIAGONAL: 'DIAGONAL',
+    HORIZONTAL: 'HORIZONTAL',
+    VERTICAL: 'VERTICAL'
+}
+
 const estadoVertice = {
     VAZIO: 'VAZIO',
     CLICADO: 'CLICADO'
