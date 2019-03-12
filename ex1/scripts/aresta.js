@@ -1,12 +1,14 @@
 'use strict'
 
 class Aresta extends Subject {
-    constructor($root, { vertice1, vertice2 }){
+    constructor($root, { vertice1, vertice2, nome }){
         super()
         this.$root = $root
         this.$aresta = this.criarAresta()
         this.$btnExcluir = this.criarBotaoExcluir()
         this.$aresta.appendChild(this.$btnExcluir)
+
+        this.nome = nome
 
         this.vertice1 = vertice1
         this.vertice2 = vertice2

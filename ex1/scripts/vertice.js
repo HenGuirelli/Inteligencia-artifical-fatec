@@ -16,6 +16,19 @@ class Vertice extends Subject {
         super.attach(grafo)
     }
 
+    addFilho(vertice){
+        this.filhos.push(vertice)
+    }
+
+    removerFilho(vertice){
+        const filhoRemover = this._pegarFilhoPeloNome(vertice.nome)
+        this.filhos = this.filhos.filter(vertice => vertice.nome !== filhoRemover.nome)
+    }
+
+    _pegarFilhoPeloNome(nome){
+        return this.filhos.filter(vertice => vertice.nome === nome)[0]
+    }
+
     pegarEstado(){
         return this.estado
     }

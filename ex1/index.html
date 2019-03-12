@@ -19,8 +19,9 @@
     <script src='scripts/aresta.js'></script>
 
     <script type='text/javascript'>
-        const grafo = new Grafo($grafo)
+        let grafo = undefined
         function iniciar() {
+            grafo = new Grafo($grafo)
             grafo.limpar()
             grafo.criar({ numColunas: $txtColunas.value })
         }

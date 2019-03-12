@@ -4,7 +4,8 @@ class Grafo extends Observer {
     constructor($grafo){
         super()
         this.$root = $grafo
-        this.proximoNome = geradorNomes()
+        this.proximoNomeVertice = geradorNomes()
+        this.proximoNomeAresta  = geradorNomes()
         this.vertices = []
         this.arestas = []
         this.$linha1 = this.criarNovaLinha()
@@ -20,10 +21,24 @@ class Grafo extends Observer {
         }
     }
 
+    _pegarArestaPeloNome(nome){
+        return this.arestas.filter(aresta => aresta.nome === nome)[0]
+    }
+
+    _removerAresta(aresta){
+        const arestaEliminada = this._pegarArestaPeloNome(aresta.nome)
+        const vertice1 = arestaEliminada.vertice1
+        const vertice2 = arestaEliminada.vertice2
+
+        vertice1.removerFilho(vertice2)
+        vertice2.removerFilho(vertice1)
+
+        return this.arestas.filter(aresta => aresta.nome !== arestaEliminada.nome )
+    }
+
     _updateAresta(obj){
-        // metodo chamado apenas quando aresta é excluida
-        console.log()
-        this.arestas.splice(this.arestas.indexOf(obj))
+        // metodo chamado apenas quando aresta é excluida    
+        this.arestas = this._removerAresta(obj)
     }
 
     _updateVertice(obj){
@@ -42,10 +57,14 @@ class Grafo extends Observer {
             const aresta = new Aresta(vertice1.$ponto, {
                 vertice1,
                 vertice2,
-                onExcluir: this.excluirAresta
+                nome: this.proximoNomeAresta()                
             })
             aresta.place()
             this.arestas.push(aresta)
+
+            vertice1.addFilho(vertice2)
+            vertice2.addFilho(vertice1)
+            console.log(vertice1)
 
             this.verticesSelecionados.forEach(vertice => vertice.estadoPadrao())
             this.verticesSelecionados = []
@@ -54,7 +73,6 @@ class Grafo extends Observer {
 
     update({ obj, expedidor }){
         this._agirParaExpedidores[expedidor](obj)
-        console.log(this.arestas)
     }
 
     criarNovaLinha() {
@@ -66,7 +84,7 @@ class Grafo extends Observer {
     criarLinha({ linhaIndex, numColunas }) {
         const $linha = this.linhas[linhaIndex]
         for (let i = 0; i < numColunas; i++){
-            let vertice = new Vertice(i, { x: i, y: linhaIndex, nome: this.proximoNome() })
+            let vertice = new Vertice(i, { x: i, y: linhaIndex, nome: this.proximoNomeVertice() })
             
             // adiciona vertice na linha especificada
             // sempre ao lado direito
