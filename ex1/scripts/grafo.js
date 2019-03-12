@@ -9,10 +9,25 @@ class Grafo extends Observer {
         this.$linha2 = this.criarNovaLinha()
 
         this.linhas = [this.$linha1, this.$linha2]
+
+        this.verticesSelecionados = []
     }
 
     update(obj){
-        console.log('grafo atualizado', obj)
+        if (obj.pegarEstado() === estadoVertice.CLICADO){
+            this.verticesSelecionados.push(obj)
+        }else{
+            // só irá remover caso tenha apenas um vertice no vetor.
+            // quando chegar a dois vertices ele cria a aresta e limpa o vetor
+            this.verticesSelecionados.pop()
+        }
+
+        if (this.verticesSelecionados.length === 2){
+            console.log('cria aresta')
+
+            this.verticesSelecionados.forEach(vertice => vertice.travar())
+            this.verticesSelecionados = []
+        }
     }
 
     criarNovaLinha() {

@@ -18,7 +18,11 @@ svg, svg * {
 }
 
 .vertice-clicado {
-    background-color: #000 !important;
+    background-color: gray !important;
+}
+
+.vertice-travado {
+    background-color: black;
 }
 
 .grade {    

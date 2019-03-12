@@ -21,8 +21,6 @@ class Subject {
     }
 
     notify(obj){
-        console.log('notificando')
-        console.log(this.observers)
         this.observers.forEach(observer => observer.update(obj))
     }
 }

@@ -1,10 +1,5 @@
 'use strict'
 
-const estado = {
-    VAZIO: 'VAZIO',
-    CLICADO: 'CLICADO'
-}
-
 class Vertice extends Subject {
     constructor($root, { x, y }){
         super()
@@ -16,7 +11,7 @@ class Vertice extends Subject {
         this.x = x
         this.y = y
         
-        this.estado = estado.VAZIO
+        this.estado = estadoVertice.VAZIO
         super.attach(grafo)
     }
 
@@ -25,13 +20,29 @@ class Vertice extends Subject {
     }
 
     _toggleEstado(){
+        if (this.estado.TRAVADO) return
+
         this.$ponto.classList.toggle(verticeClicadoClass)
 
         // altera estado
-        this.estado = this.estado === estado.VAZIO ? estado.CLICADO : estado.VAZIO
+        this.estado = this.estado === estadoVertice.VAZIO ? estadoVertice.CLICADO : estadoVertice.VAZIO
 
         // notify all
         super.notify(this)        
+    }
+
+    travar(){
+        this.$ponto.className = ''
+        this.$ponto.classList.add(classVerticeTravado)
+        this.$ponto.classList.add(classVertice)
+        console.log(this.$ponto.classList)
+        this.estado = estadoVertice.TRAVADO
+    }
+
+    destravar(){
+        this.$ponto.className = ''
+        this.$ponto.classList.add('vertice')
+        this.estado = estadoVertice.VAZIO
     }
 
     criarVertice({ x, y }) {
