@@ -1,3 +1,5 @@
+'use strict'
+
 class VerticeModel {
     constructor({ x, y, nome }){
         this.x = x
@@ -6,12 +8,28 @@ class VerticeModel {
         
         this.filhos = []
         this.arestas = []
+        this.arestas = []
         this.estado = estadoVertice.VAZIO
     }
 
     mudarEstado(){
         this.estado = this.estado === estadoVertice.VAZIO ? estadoVertice.CLICADO : estadoVertice.VAZIO
-    }    
+    }
+
+    pegarArestaSeExistir(vertice2){
+        return pegarItemPorKey('nome', this.arestas, vertice2.nome + this.nome) || 
+               pegarItemPorKey('nome', this.arestas, this.nome + vertice2.nome)
+    }
+
+    addAresta(arestaModel){
+        validarTipo(arestaModel, ArestaModel)
+        this.arestas.push(arestaModel)
+    }
+
+    removerAresta(arestaModel){
+        validarTipo(arestaModel, ArestaModel)
+        this.arestas = removerItemPorKey('nome', this.arestas, arestaModel.nome)
+    }
 
     addFilho(verticeModel){
         validarTipo(verticeModel, VerticeModel)

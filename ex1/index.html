@@ -8,6 +8,7 @@
     <body>
         <input type="number" name="txtColunas" id="txtColunas">
         <button onclick="iniciar()"> Confirmar </button>
+        <button onclick="calcular()"> Pronto </button>
 
         <div id="grafo"></div>              
     </body>
@@ -31,6 +32,9 @@
             grafo = new Grafo($grafo)
             grafo.limpar()
             grafo.criar({ numColunas: $txtColunas.value })
+        }
+
+        function calcular(){
             console.log(grafo.grafo.gerarMatrizAdjacentes())
         }
     </script>

@@ -32,7 +32,10 @@ class Grafo extends Observer {
     }
 
     _updateAresta(obj){
-        // metodo chamado apenas quando aresta é excluida    
+        // metodo chamado apenas quando aresta é excluida
+        const arestaModel = obj.aresta
+        this.grafo.removerAresta(arestaModel)
+        arestaModel.remover()
         this.arestas = this._removerAresta(obj)
         const verticeModel1 = pegarItemPorKey('nome', this.grafo.vertices, obj.aresta.vertice1.nome)
         const verticeModel2 = pegarItemPorKey('nome', this.grafo.vertices, obj.aresta.vertice2.nome)

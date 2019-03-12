@@ -1,7 +1,10 @@
+'use strict'
+
 class ArestaModel {
-    constructor({ vertice1, vertice2 }){
+    constructor({ vertice1, vertice2, nome }){
         this.vertice1 = vertice1
         this.vertice2 = vertice2
+        this.nome = nome
 
         this.indexes = {
             x1: vertice1.x, 
@@ -13,8 +16,16 @@ class ArestaModel {
         vertice1.addFilho(vertice2)
         vertice2.addFilho(vertice1)
 
+        vertice1.addAresta(this)
+        vertice2.addAresta(this)
+
         this.tipoPosicao = this._pegarTipoPosicao(this.indexes)
-        this.pega = this._pegarPeso()
+        this.peso = this._pegarPeso()
+    }
+
+    remover(){
+        this.vertice1.removerAresta(this)
+        this.vertice2.removerAresta(this)
     }
 
     _pegarPeso(){
