@@ -78,6 +78,7 @@ class Grafo extends Observer {
             })
             aresta.place()
             this.arestas.push(aresta)
+            this.grafo.addAresta(aresta.aresta)
 
             this.verticesSelecionados.forEach(vertice => vertice.estadoPadrao())
             this.verticesSelecionados = []

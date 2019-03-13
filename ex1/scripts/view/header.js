@@ -4,7 +4,9 @@ const classVerticeInicial = 'ponto-inicial'
 const classEdge = 'edge'
 const classVertice = 'vertice'
 
-
+const calcDistanciaManhatan = (vertice1, vertice2) => {
+    return Math.abs(vertice1.x - vertice2.x) + Math.abs(vertice1.y - vertice2.y)
+}
 const setWidth = ($element, width) => $element.style.width = width
 const setHeight = ($element, height) => $element.style.height = height
 const setAngle = ($element, rad) => $element.style.transform = `rotate(${rad}rad)`

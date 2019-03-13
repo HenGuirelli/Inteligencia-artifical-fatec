@@ -9,10 +9,9 @@ class GrafoModel {
         this.numColunas = 0
     }
 
-    criarAresta({ v1, v2, nome }){
-        validarTipo(v1, VerticeModel)
-        validarTipo(v2, VerticeModel)
-        this.arestas.push(new ArestaModel({ v1, v2, nome }))
+    addAresta(arestaModel){
+        validarTipo(arestaModel, ArestaModel)
+        this.arestas.push(arestaModel)
     }
 
     removerAresta(arestaModel){

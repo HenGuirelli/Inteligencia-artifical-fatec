@@ -47,6 +47,9 @@
     <script src='scripts/view/grafo.js'></script>
     <script src='scripts/view/aresta.js'></script>
 
+    <!-- PRIM -->
+    <script src='scripts/prim/PRIM.js'></script>
+
     <script type='text/javascript'>
         let grafo = undefined
         function iniciar() {
@@ -57,6 +60,8 @@
 
         function calcular(){
             console.log(grafo.grafo.gerarMatrizAdjacentes())
+            const prim = new PRIM(grafo.grafo.arestas, grafo.grafo.vertices)
+            console.log()
         }
     </script>
 </html>
