@@ -8,6 +8,7 @@ class Vertice extends Subject {
         this.$root = $root
         this.$vertice = this.criarVertice({ x, y })
         this.$ponto = this.$vertice.firstChild
+        this.tipoVertice = tipoVertice.INDEFINIDO
         
         super.attach(grafo)
     }
@@ -27,7 +28,12 @@ class Vertice extends Subject {
     }
 
     estadoPadrao(){
-        this.$ponto.className = ''
+        if (this.$ponto.classList.contains(classVerticeInicial)){
+            this.$ponto.className = ''
+            this.$ponto.classList.add(classVerticeInicial)
+        }else{
+            this.$ponto.className = ''
+        }
         this.$ponto.classList.add(classVertice)
         this.vertice.estado = estadoVertice.VAZIO
     }

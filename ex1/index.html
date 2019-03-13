@@ -8,9 +8,30 @@
     <body>
         <input type="number" name="txtColunas" id="txtColunas">
         <button onclick="iniciar()"> Confirmar </button>
-        <button onclick="calcular()"> Pronto </button>
 
-        <div id="grafo"></div>              
+        <div class="inputs">            
+            <label>
+                Vértice que será o ponto de partida
+                <div class="exemplo-cor" id="ponto-partida"></div>
+                <br />
+                <input type="text" id="txtPontoDePartida">
+            </label>
+            <button onClick="grafo.setPontoInicial()"> Confirmar </button>
+          
+            <label>
+                Vértice que será o ponto de partida
+                <div class="exemplo-cor" id="fim"></div>
+                <br />
+                <input type="text" id="pontodePartida">
+            </label>
+            <button onClick=""> Confirmar </button>
+        </div>
+
+        <button onclick="calcular()"> Pronto </button>
+        <div>
+            <div id="grafo"></div>
+        </div>
+
     </body>
 
     <script src='scripts/observer.js'></script>

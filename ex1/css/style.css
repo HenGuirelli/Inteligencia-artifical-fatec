@@ -34,6 +34,7 @@ svg, svg * {
 .edge {
     background-color: red;
     position: absolute;
+    margin-top: -90px;
 }
 
 .btn-excluir {
@@ -47,4 +48,18 @@ svg, svg * {
 .nome-vertice {
     margin-top: -10px;
     margin-left: -10px;
+}
+
+.exemplo-cor {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+
+.ponto-inicial {
+    background-color: greenyellow;
+}
+
+.fim {
+    background-color: brown;
 }

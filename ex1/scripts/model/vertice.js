@@ -5,6 +5,7 @@ class VerticeModel {
         this.x = x
         this.y = y
         this.nome = nome
+        this.tipoVertice = tipoVertice.INDEFINIDO
         
         this.filhos = []
         this.arestas = []
@@ -14,6 +15,18 @@ class VerticeModel {
 
     mudarEstado(){
         this.estado = this.estado === estadoVertice.VAZIO ? estadoVertice.CLICADO : estadoVertice.VAZIO
+    }
+
+    setInicio(){
+        this.tipoVertice = tipoVertice.INICIO
+    }
+
+    setFim(){
+        this.tipoVertice = tipoVertice.FIM
+    }
+
+    setTipoIndefinido(){
+        this.tipoVertice = tipoVertice.INDEFINIDO
     }
 
     pegarArestaSeExistir(vertice2){

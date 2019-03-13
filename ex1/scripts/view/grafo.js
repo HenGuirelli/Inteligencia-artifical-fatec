@@ -9,6 +9,8 @@ class Grafo extends Observer {
         this.arestas = []
         this.$linha1 = this.criarNovaLinha()
         this.$linha2 = this.criarNovaLinha()
+        this.$vertices = []
+        this.$pontoInicial = null
 
         this.grafo = new GrafoModel()
 
@@ -20,6 +22,18 @@ class Grafo extends Observer {
             [expedidor.VERTICE]: this._updateVertice.bind(this),
             [expedidor.ARESTA]: this._updateAresta.bind(this)
         }
+    }
+
+    setPontoInicial(){
+        if (this.$pontoInicial !== null){
+            this.$pontoInicial.$ponto.classList.remove('ponto-inicial')
+        }
+
+        const $novoInicio = pegarItemPorKey('nome', this.$vertices, $txtPontoDePartida.value.toUpperCase())
+
+        $novoInicio.$ponto.classList.add('ponto-inicial')
+        $novoInicio.vertice.setInicio($novoInicio.vertice)
+        this.$pontoInicial = $novoInicio
     }
 
     _pegarArestaPeloNome(nome){
@@ -87,6 +101,7 @@ class Grafo extends Observer {
         for (let i = 0; i < numColunas; i++){
             let vertice = new Vertice(i, { x: i, y: linhaIndex, nome: this.proximoNomeVertice() })
             this.grafo.addVertice(vertice.vertice)
+            this.$vertices.push(vertice)
             
             // adiciona vertice na linha especificada
             // sempre ao lado direito

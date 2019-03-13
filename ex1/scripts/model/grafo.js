@@ -25,6 +25,14 @@ class GrafoModel {
         this.vertices.push(verticeModel)
     }
 
+    setPontoInicial(vertice){
+       vertice.tipoVertice = tipoVertice.INICIO
+    }
+
+    setPontoFinal(nome){
+
+    }
+
     gerarMatrizAdjacentes(){
         // gerar vetor de nome de vertices ["A", "B", "C", ...]
         // percorrer o vetor de vertices, o vertice index deve criar um novo vetor com o peso da aresta

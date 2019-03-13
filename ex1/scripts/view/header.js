@@ -1,6 +1,7 @@
 const verticeClicadoClass = 'vertice-clicado'
-const classEdge = 'edge'
 const classVerticeTravado = 'vertice-travado'
+const classVerticeInicial = 'ponto-inicial'
+const classEdge = 'edge'
 const classVertice = 'vertice'
 
 
@@ -25,6 +26,7 @@ const GrafoTest = [
 
 const $grafo = document.querySelector('#grafo')
 const $txtColunas = document.querySelector('#txtColunas')
+const $txtPontoDePartida = document.querySelector('#txtPontoDePartida')
 const qtdVertice = parseInt($txtColunas.value * 2)
 
 const geradorNomes = () => {
@@ -72,4 +74,10 @@ const estadoVertice = {
 const expedidor = {
     VERTICE: 'VERTICE',
     ARESTA: 'ARESTA'
+}
+
+const tipoVertice = {
+    INICIO: 'INICIO',
+    FIM: 'FIM',
+    INDEFINIDO: undefined
 }
