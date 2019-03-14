@@ -34,7 +34,7 @@ svg, svg * {
 .edge {
     background-color: red;
     position: absolute;
-    margin-top: -90px;
+    margin-top: -115px;
 }
 
 .btn-excluir {
@@ -60,6 +60,6 @@ svg, svg * {
     background-color: greenyellow;
 }
 
-.fim {
+.ponto-final {
     background-color: brown;
 }

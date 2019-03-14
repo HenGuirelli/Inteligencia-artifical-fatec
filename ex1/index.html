@@ -11,20 +11,21 @@
 
         <div class="inputs">            
             <label>
-                Vértice que será o ponto de partida
+                Vértice que será a origem
                 <div class="exemplo-cor" id="ponto-partida"></div>
                 <br />
                 <input type="text" id="txtPontoDePartida">
             </label>
             <button onClick="grafo.setPontoInicial()"> Confirmar </button>
-          
+            
+            <br />
             <label>
-                Vértice que será o ponto de partida
+                Vértice que será o destino
                 <div class="exemplo-cor" id="fim"></div>
                 <br />
-                <input type="text" id="pontodePartida">
+                <input type="text" id="txtPontoFinal">
             </label>
-            <button onClick=""> Confirmar </button>
+            <button onClick="grafo.setPontoFinal()"> Confirmar </button>
         </div>
 
         <button onclick="calcular()"> Pronto </button>
@@ -48,6 +49,8 @@
     <script src='scripts/view/aresta.js'></script>
 
     <!-- PRIM -->
+    <script src="scripts/prim/aresta.js"></script>
+    <script src="scripts/prim/vertice.js"></script>
     <script src='scripts/prim/PRIM.js'></script>
 
     <script type='text/javascript'>
@@ -60,8 +63,9 @@
 
         function calcular(){
             console.log(grafo.grafo.gerarMatrizAdjacentes())
-            const prim = new PRIM(grafo.grafo.arestas, grafo.grafo.vertices)
-            console.log()
+            console.log(grafo)
+            const prim = new PRIM({ arestas: grafo.grafo.arestas, vertices: grafo.grafo.vertices})
+            console.log(prim)
         }
     </script>
 </html>

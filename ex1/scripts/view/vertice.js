@@ -28,12 +28,16 @@ class Vertice extends Subject {
     }
 
     estadoPadrao(){
+        const classes = []
         if (this.$ponto.classList.contains(classVerticeInicial)){
-            this.$ponto.className = ''
-            this.$ponto.classList.add(classVerticeInicial)
-        }else{
-            this.$ponto.className = ''
+            classes.push(classVerticeInicial)
         }
+        if (this.$ponto.classList.contains(classVerticeFinal)){
+            classes.push(classVerticeFinal)
+        }
+        this.$ponto.className = ''
+        classes.forEach(classe => this.$ponto.classList.add(classe))
+
         this.$ponto.classList.add(classVertice)
         this.vertice.estado = estadoVertice.VAZIO
     }

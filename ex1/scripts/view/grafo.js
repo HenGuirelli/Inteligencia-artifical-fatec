@@ -11,6 +11,7 @@ class Grafo extends Observer {
         this.$linha2 = this.criarNovaLinha()
         this.$vertices = []
         this.$pontoInicial = null
+        this.$pontoFinal = null
 
         this.grafo = new GrafoModel()
 
@@ -32,8 +33,20 @@ class Grafo extends Observer {
         const $novoInicio = pegarItemPorKey('nome', this.$vertices, $txtPontoDePartida.value.toUpperCase())
 
         $novoInicio.$ponto.classList.add('ponto-inicial')
-        $novoInicio.vertice.setInicio($novoInicio.vertice)
+        $novoInicio.vertice.setInicio()
         this.$pontoInicial = $novoInicio
+    }
+
+    setPontoFinal(){
+        if (this.$pontoFinal !== null){
+            this.$pontoFinal.$ponto.classList.remove('ponto-final')
+        }
+
+        const $novoFim = pegarItemPorKey('nome', this.$vertices, $txtPontoFinal.value.toUpperCase())
+
+        $novoFim.$ponto.classList.add('ponto-final')
+        $novoFim.vertice.setFim()
+        this.$pontoFinal = $novoFim
     }
 
     _pegarArestaPeloNome(nome){

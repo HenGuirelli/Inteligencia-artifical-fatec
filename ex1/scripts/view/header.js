@@ -1,6 +1,7 @@
 const verticeClicadoClass = 'vertice-clicado'
 const classVerticeTravado = 'vertice-travado'
 const classVerticeInicial = 'ponto-inicial'
+const classVerticeFinal = 'ponto-final'
 const classEdge = 'edge'
 const classVertice = 'vertice'
 
@@ -29,6 +30,7 @@ const GrafoTest = [
 const $grafo = document.querySelector('#grafo')
 const $txtColunas = document.querySelector('#txtColunas')
 const $txtPontoDePartida = document.querySelector('#txtPontoDePartida')
+const $txtPontoFinal = document.querySelector('#txtPontoFinal')
 const qtdVertice = parseInt($txtColunas.value * 2)
 
 const geradorNomes = () => {

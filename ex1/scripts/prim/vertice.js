@@ -1,5 +1,5 @@
-class VerticePrim {
-    constructor(VerticeModel){
+class VerticePRIM {
+    constructor(verticeModel){
         this.verticeModel = verticeModel
     }
 }
