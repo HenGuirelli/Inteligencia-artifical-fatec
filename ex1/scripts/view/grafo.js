@@ -13,7 +13,7 @@ class Grafo extends Observer {
         this.$pontoInicial = null
         this.$pontoFinal = null
 
-        this.grafo = new GrafoModel()
+        this.grafoModel = new GrafoModel()
 
         this.linhas = [this.$linha1, this.$linha2]
 
@@ -28,6 +28,8 @@ class Grafo extends Observer {
     setPontoInicial(){
         if (this.$pontoInicial !== null){
             this.$pontoInicial.$ponto.classList.remove('ponto-inicial')
+            const pontoInicialModel = pegarItemPorKey('tipoVertice', this.grafoModel.vertices, tipoVertice.INICIO)
+            pontoInicialModel.tipoVertice = tipoVertice.INDEFINIDO
         }
 
         const $novoInicio = pegarItemPorKey('nome', this.$vertices, $txtPontoDePartida.value.toUpperCase())
@@ -40,6 +42,8 @@ class Grafo extends Observer {
     setPontoFinal(){
         if (this.$pontoFinal !== null){
             this.$pontoFinal.$ponto.classList.remove('ponto-final')
+            const pontoFinalModel = pegarItemPorKey('tipoVertice', this.grafoModel.vertices, tipoVertice.FIM)
+            pontoFinalModel.tipoVertice = tipoVertice.INDEFINIDO
         }
 
         const $novoFim = pegarItemPorKey('nome', this.$vertices, $txtPontoFinal.value.toUpperCase())
@@ -61,11 +65,11 @@ class Grafo extends Observer {
     _updateAresta(obj){
         // metodo chamado apenas quando aresta é excluida
         const arestaModel = obj.aresta
-        this.grafo.removerAresta(arestaModel)
+        this.grafoModel.removerAresta(arestaModel)
         arestaModel.remover()
         this.arestas = this._removerAresta(obj)
-        const verticeModel1 = pegarItemPorKey('nome', this.grafo.vertices, obj.aresta.vertice1.nome)
-        const verticeModel2 = pegarItemPorKey('nome', this.grafo.vertices, obj.aresta.vertice2.nome)
+        const verticeModel1 = pegarItemPorKey('nome', this.grafoModel.vertices, obj.aresta.vertice1.nome)
+        const verticeModel2 = pegarItemPorKey('nome', this.grafoModel.vertices, obj.aresta.vertice2.nome)
 
         verticeModel1.removerFilho(verticeModel2)
         verticeModel2.removerFilho(verticeModel1)
@@ -91,7 +95,7 @@ class Grafo extends Observer {
             })
             aresta.place()
             this.arestas.push(aresta)
-            this.grafo.addAresta(aresta.aresta)
+            this.grafoModel.addAresta(aresta.aresta)
 
             this.verticesSelecionados.forEach(vertice => vertice.estadoPadrao())
             this.verticesSelecionados = []
@@ -100,7 +104,7 @@ class Grafo extends Observer {
 
 
     update({ obj, expedidor }){
-        console.log(this.grafo)
+        console.log(this.grafoModel)
         this._agirParaExpedidores[expedidor](obj)
     }
 
@@ -114,7 +118,7 @@ class Grafo extends Observer {
         const $linha = this.linhas[linhaIndex]
         for (let i = 0; i < numColunas; i++){
             let vertice = new Vertice(i, { x: i, y: linhaIndex, nome: this.proximoNomeVertice() })
-            this.grafo.addVertice(vertice.vertice)
+            this.grafoModel.addVertice(vertice.vertice)
             this.$vertices.push(vertice)
             
             // adiciona vertice na linha especificada

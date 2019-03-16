@@ -50,6 +50,7 @@
 
     <!-- PRIM -->
     <script src="scripts/prim/aresta.js"></script>
+    <script src='scripts/prim/candidatos.js'></script>
     <script src="scripts/prim/vertice.js"></script>
     <script src='scripts/prim/PRIM.js'></script>
 
@@ -62,10 +63,11 @@
         }
 
         function calcular(){
-            console.log(grafo.grafo.gerarMatrizAdjacentes())
+            console.log(grafo.grafoModel.gerarMatrizAdjacentes())
             console.log(grafo)
-            const prim = new PRIM({ arestas: grafo.grafo.arestas, vertices: grafo.grafo.vertices})
+            const prim = new PRIM({ arestas: grafo.grafoModel.arestas, vertices: grafo.grafoModel.vertices})
             console.log(prim)
+            prim.iniciar()
         }
     </script>
 </html>
