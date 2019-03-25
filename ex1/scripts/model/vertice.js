@@ -9,7 +9,6 @@ class VerticeModel {
         
         this.filhos = []
         this.arestas = []
-        this.arestas = []
         this.estado = estadoVertice.VAZIO
     }
 

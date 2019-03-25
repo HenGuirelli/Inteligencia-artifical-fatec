@@ -48,11 +48,17 @@
     <script src='scripts/view/grafo.js'></script>
     <script src='scripts/view/aresta.js'></script>
 
-    <!-- PRIM -->
+    <!-- DIJKSTRA -->
+    <script src="scripts/dijkstra/aresta.js"></script>
+    <script src="scripts/dijkstra/vertice.js"></script>
+    <script src='scripts/dijkstra/DIJKSTRA.js'></script>
+    <script src='scripts/dijkstra/arvore.js'></script>
+
+    <!-- PRIM
     <script src="scripts/prim/aresta.js"></script>
     <script src='scripts/prim/candidatos.js'></script>
     <script src="scripts/prim/vertice.js"></script>
-    <script src='scripts/prim/PRIM.js'></script>
+    <script src='scripts/prim/PRIM.js'></script> -->
 
     <script type='text/javascript'>
         let grafo = undefined
@@ -62,12 +68,18 @@
             grafo.criar({ numColunas: $txtColunas.value })
         }
 
+        // function calcular(){
+        //     console.log(grafo.grafoModel.gerarMatrizAdjacentes())
+        //     console.log(grafo)
+        //     const prim = new PRIM({ arestas: grafo.grafoModel.arestas, vertices: grafo.grafoModel.vertices})
+        //     console.log(prim)
+        //     prim.iniciar()
+        // }
+        
         function calcular(){
-            console.log(grafo.grafoModel.gerarMatrizAdjacentes())
-            console.log(grafo)
-            const prim = new PRIM({ arestas: grafo.grafoModel.arestas, vertices: grafo.grafoModel.vertices})
-            console.log(prim)
-            prim.iniciar()
+            const dijkstra = new Dijkstra(grafo.grafoModel)
+            dijkstra.iniciar()
         }
+
     </script>
 </html>

@@ -24,12 +24,18 @@ class GrafoModel {
         this.vertices.push(verticeModel)
     }
 
-    setPontoInicial(vertice){
-       vertice.tipoVertice = tipoVertice.INICIO
+    pegarVerticeInicial(){
+        for (vertice of this.vertices){
+            if (vertice.tipoVertice === tipoVertice.INICIO)
+                return vertice
+        }
     }
 
-    setPontoFinal(nome){
-
+    pegarVerticeFinal(){
+        for (vertice of this.vertices){
+            if (vertice.tipoVertice === tipoVertice.FIM)
+                return vertice
+        }
     }
 
     gerarMatrizAdjacentes(){
