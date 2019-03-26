@@ -13,8 +13,12 @@ class Noh {
 
 class Arvore {
     constructor(nohInicial){
-        //validarTipo(nohInicial, Noh)
         this.nohInicial = nohInicial
+    }
+
+    addNoh({ noh, nomePai }){
+        const pai = this.pegarNohPorNome(this.nohInicial, nomePai)
+        pai.addFilho(noh)
     }
 
     pegarNohPorNome(noh, nome){
