@@ -6,7 +6,7 @@ class Grafo extends Observer {
         this.$root = $grafo
         this.proximoNomeVertice = geradorNomes()
         this.proximoNomeAresta  = geradorNomes()
-        this.arestas = []
+        this.$arestas = []
         this.$linha1 = this.criarNovaLinha()
         this.$linha2 = this.criarNovaLinha()
         this.$vertices = []
@@ -54,12 +54,12 @@ class Grafo extends Observer {
     }
 
     _pegarArestaPeloNome(nome){
-        return this.arestas.filter(aresta => aresta.nome === nome)[0]
+        return this.$arestas.filter(aresta => aresta.nome === nome)[0]
     }
 
     _removerAresta(aresta){
         const arestaEliminada = this._pegarArestaPeloNome(aresta.nome)
-        return this.arestas.filter(aresta => aresta.nome !== arestaEliminada.nome )
+        return this.$arestas.filter(aresta => aresta.nome !== arestaEliminada.nome )
     }
 
     _updateAresta(obj){
@@ -67,7 +67,7 @@ class Grafo extends Observer {
         const arestaModel = obj.aresta
         this.grafoModel.removerAresta(arestaModel)
         arestaModel.remover()
-        this.arestas = this._removerAresta(obj)
+        this.$arestas = this._removerAresta(obj)
         const verticeModel1 = pegarItemPorKey('nome', this.grafoModel.vertices, obj.aresta.vertice1.nome)
         const verticeModel2 = pegarItemPorKey('nome', this.grafoModel.vertices, obj.aresta.vertice2.nome)
 
@@ -94,7 +94,7 @@ class Grafo extends Observer {
                 nome: this.proximoNomeAresta()                
             })
             aresta.place()
-            this.arestas.push(aresta)
+            this.$arestas.push(aresta)
             this.grafoModel.addAresta(aresta.aresta)
 
             this.verticesSelecionados.forEach(vertice => vertice.estadoPadrao())

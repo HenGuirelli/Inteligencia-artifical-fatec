@@ -173,6 +173,6 @@ class Dijkstra {
             const { precedente } = tabela.pegarDadosDoVertice(minimo)
             arvore.addNoh({ noh: new Noh(this._pegarVerticePorNome(minimo), minimo), nomePai: precedente})
         }
-        return nohInicial
+        return arvore
     }
 }

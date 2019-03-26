@@ -32,9 +32,14 @@ svg, svg * {
 }
 
 .edge {
-    background-color: red;
+    background-color: black;
     position: absolute;
     margin-top: -115px;
+}
+
+.menor-caminho {
+    box-shadow: 0px 0px 7px 5px;
+    z-index: 999;
 }
 
 .btn-excluir {

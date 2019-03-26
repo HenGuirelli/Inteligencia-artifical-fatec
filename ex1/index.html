@@ -79,7 +79,8 @@
         function calcular(){
             const dijkstra = new Dijkstra(grafo.grafoModel)
             const arvoreMinima = dijkstra.iniciar()
-            console.log(arvoreMinima)
+            arvoreMinima.desenharArvore(grafo.$arestas)
+            arvoreMinima.marcarCaminho(arvoreMinima.nohInicial, null, $txtPontoFinal.value.toUpperCase())
         }
 
     </script>
