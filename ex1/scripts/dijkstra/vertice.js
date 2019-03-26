@@ -6,5 +6,6 @@ class VerticeDijksTra {
         this.verticeModel = verticeModel
 
         this.nome = verticeModel.nome
+        this.filhos = []
     }
 }
