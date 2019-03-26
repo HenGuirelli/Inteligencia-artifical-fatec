@@ -60,7 +60,7 @@ const removerItemPorKey = (chave, vetor, valor) => {
 
 const validarTipo = (obj, T) => {
     if ( !(obj instanceof T) ){
-        throw "objeto incorredo espertado 'VerticeModel' recebido: " + typeof verticeModel
+        throw `objeto incorredo esperado '${typeof T}' recebido: ${typeof obj}`
     }
 }
 
