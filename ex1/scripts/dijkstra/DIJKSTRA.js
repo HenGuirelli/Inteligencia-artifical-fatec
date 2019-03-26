@@ -55,7 +55,7 @@ class Tabela {
     _pegarNomePelaEstimativa(estimativa) {
         let result = ''
         iterJson(this.tabela)((coluna, key) => {
-            if (coluna[key].estimativa === estimativa)
+            if (coluna[key].estimativa === estimativa && coluna[key].fechado == false)
                 result = key
         })
         return result
@@ -148,8 +148,8 @@ class Dijkstra {
     iniciar(){
         const tabela = this.tabela
 
-        // const nohInicial = new Noh(this.verticeInicial, this.verticeInicial.nome)
-        // const arvore = new Arvore(nohInicial)
+        const nohInicial = new Noh(this.verticeInicial, this.verticeInicial.nome)
+        const arvore = new Arvore(nohInicial)
 
         tabela.fecharVertice(this.verticeInicial.nome)
         
@@ -169,6 +169,10 @@ class Dijkstra {
             })
             const minimo = tabela.pegarNomeDoVerticeMinimo()
             tabela.fecharVertice(minimo)
+            
+            const { precedente } = tabela.pegarDadosDoVertice(minimo)
+            arvore.addNoh({ noh: new Noh(this._pegarVerticePorNome(minimo), minimo), nomePai: precedente})
         }
+        return nohInicial
     }
 }
