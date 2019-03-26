@@ -139,4 +139,8 @@ class Grafo extends Observer {
         this.$linha2.innerHTML = ''
     }
 
+    limparArestas(){
+        this.$arestas.forEach($arestaView => $arestaView.$aresta.className = 'edge')
+    }
+
 }

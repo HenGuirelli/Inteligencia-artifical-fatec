@@ -42,6 +42,10 @@ svg, svg * {
     z-index: 999;
 }
 
+.arvore-minima {
+    background-color: red;
+}
+
 .btn-excluir {
     display: none
 }

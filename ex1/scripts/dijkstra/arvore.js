@@ -21,7 +21,7 @@ class Noh {
     marcarArestas() {
         this.filhos.forEach(filho => {
             const $aresta = _pegarArestaPorNome(this.nome + filho.nome) || _pegarArestaPorNome(filho.nome + this.nome)
-            $aresta.$aresta.style.backgroundColor = 'red'
+            $aresta.$aresta.classList.add('arvore-minima')
             filho.marcarArestas()
         })
     }
@@ -66,6 +66,7 @@ class Arvore {
     }
 
     marcarCaminho(noh, pai, nomeVerticeFim){
+        _$pilhaCaminho = []
         this.procurarCaminho(noh, pai, nomeVerticeFim)
         _$pilhaCaminho.forEach($aresta => {
             $aresta.classList.add('menor-caminho')
