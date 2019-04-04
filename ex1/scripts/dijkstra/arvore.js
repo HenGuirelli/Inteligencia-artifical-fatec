@@ -1,6 +1,8 @@
 let _$arestas = []
 let _achouOCaminho = false
 let _$pilhaCaminho = []
+let pilhaNomeCaminho = []
+let distanciasPercorrida = []
 
 const _pegarArestaPorNome = (nome) => {
     return _$arestas.filter($aresta => $aresta.nome === nome)[0]
@@ -47,7 +49,12 @@ class Arvore {
         try{
             const $aresta = _pegarArestaPorNome(noh.nome + pai) || _pegarArestaPorNome(pai + noh.nome)
             _$pilhaCaminho.push($aresta.$aresta)
-        }catch(e) { /* a primeira vez que entra ele estoura uma exceção, já que o pai é null */}
+            pilhaNomeCaminho.push(noh.nome)
+            distanciasPercorrida.push($aresta.aresta.peso)
+            //pilhaNomeCaminho.push($aresta.nome)
+        }catch(e) { /* a primeira vez que entra ele estoura uma exceção, já que o pai é null */
+            pilhaNomeCaminho.push(noh.nome) 
+        }
 
         if (noh.nome === nomeVerticeFim){
             _achouOCaminho = true
@@ -62,11 +69,15 @@ class Arvore {
             }
         }
         _$pilhaCaminho.pop()
+        pilhaNomeCaminho.pop()
+        distanciasPercorrida.pop()
         return null
     }
 
     marcarCaminho(noh, pai, nomeVerticeFim){
         _$pilhaCaminho = []
+        pilhaNomeCaminho = []
+        distanciasPercorrida = []
         this.procurarCaminho(noh, pai, nomeVerticeFim)
         _$pilhaCaminho.forEach($aresta => {
             $aresta.classList.add('menor-caminho')

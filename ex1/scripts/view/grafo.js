@@ -57,6 +57,10 @@ class Grafo extends Observer {
         return this.$arestas.filter(aresta => aresta.nome === nome)[0]
     }
 
+    pegarVerticePeloNome(nome){
+        return this.$vertices.filter($vertice => $vertice.nome === nome)[0]
+    }
+
     _removerAresta(aresta){
         const arestaEliminada = this._pegarArestaPeloNome(aresta.nome)
         return this.$arestas.filter(aresta => aresta.nome !== arestaEliminada.nome )
@@ -129,8 +133,19 @@ class Grafo extends Observer {
     }
 
     criar({ numColunas }){
-        this.criarLinha({ linhaIndex: 0, numColunas })
-        this.criarLinha({ linhaIndex: 1, numColunas })
+        let qtdVerticesLinha1
+        let qtdVerticesLinha2
+
+        if (parseInt(numColunas) % 2 == 0){
+            qtdVerticesLinha1 = parseInt(numColunas) / 2
+            qtdVerticesLinha2 = parseInt(numColunas) / 2
+        }else{
+            qtdVerticesLinha1 = parseInt(numColunas) / 2
+            qtdVerticesLinha2 = parseInt(numColunas) / 2 - 1
+        }
+
+        this.criarLinha({ linhaIndex: 0, numColunas: qtdVerticesLinha1 })
+        this.criarLinha({ linhaIndex: 1, numColunas: qtdVerticesLinha2 })
     }
 
     limpar(){
@@ -143,4 +158,48 @@ class Grafo extends Observer {
         this.$arestas.forEach($arestaView => $arestaView.$aresta.className = 'edge')
     }
 
+
+    _criarHeaderMatrizAdjacentes(tamanhoMatriz){
+        const proximoNome = geradorNomes()
+        const $linhaHeader = document.createElement('tr')
+        
+        // pular primeira coluna
+        $linhaHeader.appendChild(document.createElement('th'))
+
+        for(let i = 0; i < tamanhoMatriz; i++){
+            const $th = document.createElement('th')
+            const nomeVertice = proximoNome()
+            $th.innerHTML = nomeVertice
+            $linhaHeader.appendChild($th)
+        }
+        $matrizAdjacentes.appendChild($linhaHeader)
+    }
+
+    mostrarMatrizAdjacentes() {
+        const matriz = this.grafoModel.gerarMatrizAdjacentes()
+        const tamanhoMatriz = matriz.length
+        const proximoNome = geradorNomes()
+        
+        this._criarHeaderMatrizAdjacentes(tamanhoMatriz)        
+
+        matriz.forEach(linha => {
+            const $row = document.createElement('tr')
+            const diff = tamanhoMatriz - linha.length
+
+            const nome = proximoNome()
+            const $td = document.createElement('th')
+            $td.innerHTML = nome
+            $row.appendChild($td)
+
+            for (let i = 0; i < diff; i++){               
+                $row.appendChild(document.createElement('td'))
+            }
+            linha.forEach((peso, index) => {
+                const $peso = document.createElement('td')
+                $peso.innerHTML = peso
+                $row.appendChild($peso)
+            })
+            $matrizAdjacentes.appendChild($row)
+        })
+    }
 }

@@ -31,6 +31,10 @@ const $grafo = document.querySelector('#grafo')
 const $txtColunas = document.querySelector('#txtColunas')
 const $txtPontoDePartida = document.querySelector('#txtPontoDePartida')
 const $txtPontoFinal = document.querySelector('#txtPontoFinal')
+const $matrizAdjacentes = document.querySelector('#matriz-adjacentes')
+const $caminhoPercorrido = document.querySelector('#caminho-percorrido')
+const $distanciaManhattan = document.querySelector('#distancia-manhattan')
+const $distanciaPercorrida = document.querySelector('#distancia-percorrida')
 const qtdVertice = parseInt($txtColunas.value * 2)
 
 const geradorNomes = () => {

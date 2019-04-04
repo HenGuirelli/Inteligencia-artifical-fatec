@@ -2,8 +2,41 @@
     <head>
         <link rel="stylesheet" href="css/style.css">
     </head>
-    <body>            
+    <body>
+        <button onClick="testar()"></button>
     </body>
 
-    <script src="scripts/model/vertice.js"></script>
+    <script src="scripts/dijkstra/arvore.js"></script>
+
+    <script>
+        const testar = () => {
+            const A = new Noh({}, 'A')
+            const B = new Noh({}, 'B')
+            const C = new Noh({}, 'C')
+            const D = new Noh({}, 'D')
+            const E = new Noh({}, 'E')
+            const F = new Noh({}, 'F')
+            const G = new Noh({}, 'G')
+            const H = new Noh({}, 'H')
+            const I = new Noh({}, 'I')
+            const J = new Noh({}, 'J')
+
+            A.addFilho(B)
+            A.addFilho(C)
+            A.addFilho(D)
+
+            B.addFilho(E)
+            B.addFilho(F)
+            
+            C.addFilho(G)
+            
+            D.addFilho(H)
+            D.addFilho(I)
+            D.addFilho(J)
+
+            
+            const arvore = new Arvore(A)
+            console.log(arvore.pegarNohPorNome(A, 'H'))
+        }
+    </script>
 </html>

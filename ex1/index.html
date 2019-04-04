@@ -29,8 +29,30 @@
         </div>
 
         <button onclick="calcular()"> Pronto </button>
-        <div>
+        <div style="height: 600px;">
             <div id="grafo"></div>
+        </div>
+
+        <div>
+            <h3>Algoritmo utilizado</h3>
+            <span>Dijkstra</span>
+        </div>
+
+        <div>
+            <h3>Matriz de adjacentes</h3>
+            <table id='matriz-adjacentes'>
+            </table>
+        </div>
+
+        <div>
+            <h3>Caminho percorrido</h3>
+            <span id='caminho-percorrido'></span>
+        </div>
+
+        <div>
+            <h3>Distancias</h3>
+            <p id='distancia-manhattan'></p>
+            <p id='distancia-percorrida'></p>
         </div>
 
     </body>
@@ -54,12 +76,6 @@
     <script src='scripts/dijkstra/DIJKSTRA.js'></script>
     <script src='scripts/dijkstra/arvore.js'></script>
 
-    <!-- PRIM
-    <script src="scripts/prim/aresta.js"></script>
-    <script src='scripts/prim/candidatos.js'></script>
-    <script src="scripts/prim/vertice.js"></script>
-    <script src='scripts/prim/PRIM.js'></script> -->
-
     <script type='text/javascript'>
         let grafo = undefined
         function iniciar() {
@@ -67,21 +83,48 @@
             grafo.limpar()
             grafo.criar({ numColunas: $txtColunas.value })
         }
-
-        // function calcular(){
-        //     console.log(grafo.grafoModel.gerarMatrizAdjacentes())
-        //     console.log(grafo)
-        //     const prim = new PRIM({ arestas: grafo.grafoModel.arestas, vertices: grafo.grafoModel.vertices})
-        //     console.log(prim)
-        //     prim.iniciar()
-        // }
         
         function calcular(){
             grafo.limparArestas()
+            limparMatrizAdjacentes()
+            limparCaminhoPercorrido()
+
             const dijkstra = new Dijkstra(grafo.grafoModel)
             const arvoreMinima = dijkstra.iniciar()
             arvoreMinima.desenharArvore(grafo.$arestas)
             arvoreMinima.marcarCaminho(arvoreMinima.nohInicial, null, $txtPontoFinal.value.toUpperCase())
+
+            grafo.mostrarMatrizAdjacentes()
+
+            mostrarCaminhoPercorrido()
+            mostrarDistancias()
+        }
+
+        function limparMatrizAdjacentes(){
+            while ($matrizAdjacentes.firstChild) {
+                $matrizAdjacentes.removeChild($matrizAdjacentes.firstChild);
+            }
+        }
+
+        function limparCaminhoPercorrido(){
+            $caminhoPercorrido.innerHTML = ''
+        }
+
+        function mostrarCaminhoPercorrido(){
+            pilhaNomeCaminho.forEach((element, index) => {
+                const seta = index === pilhaNomeCaminho.length -1 ? '' : '->'
+                $caminhoPercorrido.innerHTML += element + seta
+            });
+        }
+
+        function mostrarDistancias(){
+            const vertices = grafo.$vertices.map($vertice => $vertice.vertice)
+            const pontoInicial = pegarItemPorKey('tipoVertice', vertices, tipoVertice.INICIO)
+            const pontoFinal = pegarItemPorKey('tipoVertice', vertices, tipoVertice.FIM)
+            $distanciaManhattan.innerHTML =  'Manhattan: ' + calcDistanciaManhatan(pontoInicial, pontoFinal)
+
+            const distanciaPercorrida = distanciasPercorrida.reduce((acc, curr) => acc + curr, 0)
+            $distanciaPercorrida.innerHTML = 'Distancia percorrida: ' +distanciaPercorrida
         }
 
     </script>
