@@ -1,8 +1,3 @@
-const $refrigerante = document.getElementById('refrigerante')
-const $run = document.getElementById('run')
-const $gelo = document.getElementById('gelo')
-const $nomeRefrigerante = document.getElementById('nome-refrigerante')
-
 const Paladar = {
     Fraco: 'fraco',
     Suave: 'suave',
@@ -262,11 +257,10 @@ const getMedia = (...valores) => {
     return soma(...valores) / valores.length
 }
 
-const iniciar = () => {
+const calcular = () => {
     console.clear()
-    validar0ate100($refrigerante, 'Refrigerante')
-    validar0ate100($run, 'Run')
-    validar0ate100($gelo, 'Gelo')
+
+    const resultado = new ResultadoFuzzy()
 
     // valores digitado pelo usuario
     const refrigerante = parseFloat($refrigerante.value)
@@ -304,30 +298,27 @@ const iniciar = () => {
     const suaveMin3 = Math.min(refrigeranteFraco, runForte, _gelo)
     const suaveMax = Math.max(suaveMin1, suaveMin2, suaveMin3)
     const suaveMedia = getMedia(suaveMin1, suaveMin2, suaveMin3)
-    console.log('\nSuave:')
-    console.log(`{cocaforte(${refrigerante}); runFraco(${run}); gelo(${gelo})} --- {${ refrigeranteForte }; ${ runFraco }; ${ _gelo }} | min > ${ suaveMin1 }`)
-    console.log(`{cocasuave(${refrigerante}); runsuave(${run}); gelo(${gelo})} --- {${ refrigeranteSuave }; ${ runSuave }; ${ _gelo }} | min > ${ suaveMin2 } | max > ${ suaveMax }`)
-    console.log(`{cocafraco(${refrigerante}); runForte(${run}); gelo(${gelo})} --- {${ refrigeranteFraco }; ${ runForte }; ${ _gelo }} | min > ${ suaveMin3 }`)
+    resultado.suave1 = `{cocaforte(${refrigerante}); runFraco(${run}); gelo(${gelo})} --- {${ refrigeranteForte }; ${ runFraco }; ${ _gelo }} | min > ${ suaveMin1 }`
+    resultado.suave2 = `{cocasuave(${refrigerante}); runsuave(${run}); gelo(${gelo})} --- {${ refrigeranteSuave }; ${ runSuave }; ${ _gelo }} | min > ${ suaveMin2 } | max > ${ suaveMax }`
+    resultado.suave3 = `{cocafraco(${refrigerante}); runForte(${run}); gelo(${gelo})} --- {${ refrigeranteFraco }; ${ runForte }; ${ _gelo }} | min > ${ suaveMin3 }`
 
     const forteMin1 = Math.min(refrigeranteForte, runSuave, _gelo)
     const forteMin2 = Math.min(refrigeranteForte, runForte, _gelo)
     const forteMin3 = Math.min(refrigeranteSuave, runForte, _gelo)
     const forteMax = Math.max(forteMin1, forteMin2, forteMin3)
     const forteMedia = getMedia(forteMin1, forteMin2, forteMin3)
-    console.log('\nForte:')
-    console.log(`{cocaforte(${refrigerante}); runsuave(${run}); gelo(${gelo})} --- {${ refrigeranteForte }; ${ runSuave }; ${ _gelo }} | min > ${ forteMin1 }`)
-    console.log(`{cocaforte(${refrigerante}); runForte(${run}); gelo(${gelo})} --- {${ refrigeranteForte }; ${ runForte }; ${ _gelo }} | min > ${ forteMin2 } | max > ${ forteMax }`)
-    console.log(`{cocasuave(${refrigerante}); runForte(${run}); gelo(${gelo})} --- {${ refrigeranteSuave }; ${ runForte }; ${ _gelo }} | min > ${ forteMin3 }`)
+    resultado.forte1 = `{cocaforte(${refrigerante}); runsuave(${run}); gelo(${gelo})} --- {${ refrigeranteForte }; ${ runSuave }; ${ _gelo }} | min > ${ forteMin1 }`
+    resultado.forte2 = `{cocaforte(${refrigerante}); runForte(${run}); gelo(${gelo})} --- {${ refrigeranteForte }; ${ runForte }; ${ _gelo }} | min > ${ forteMin2 } | max > ${ forteMax }`
+    resultado.forte3 = `{cocasuave(${refrigerante}); runForte(${run}); gelo(${gelo})} --- {${ refrigeranteSuave }; ${ runForte }; ${ _gelo }} | min > ${ forteMin3 }`
 
     const fracoMin1 = Math.min(refrigeranteFraco, runFraco, _gelo)
     const fracoMin2 = Math.min(refrigeranteFraco, runSuave, _gelo)
     const fracoMin3 = Math.min(refrigeranteSuave, runFraco, _gelo)
     const fracoMax = Math.max(fracoMin1, fracoMin2, fracoMin3)
     const fracoMedia = getMedia(fracoMin1, fracoMin2, fracoMin3)
-    console.log('\nFraco:')
-    console.log(`{cocafraco(${refrigerante}); runFraco(${run}); gelo(${gelo})} --- {${ refrigeranteFraco }; ${ runFraco }; ${ _gelo }} | min > ${ fracoMin1 }`)
-    console.log(`{cocafraco(${refrigerante}); runsuave(${run}); gelo(${gelo})} --- {${ refrigeranteFraco }; ${ runSuave }; ${ _gelo }} | min > ${ fracoMin2 } | max > ${ fracoMax }`)
-    console.log(`{cocasuave(${refrigerante}); runFraco(${run}); gelo(${gelo})} --- {${ refrigeranteSuave }; ${ runFraco }; ${ _gelo }} | min > ${ fracoMin3 }`)
+    resultado.fraco1 = `{cocafraco(${refrigerante}); runFraco(${run}); gelo(${gelo})} --- {${ refrigeranteFraco }; ${ runFraco }; ${ _gelo }} | min > ${ fracoMin1 }`
+    resultado.fraco2 = `{cocafraco(${refrigerante}); runsuave(${run}); gelo(${gelo})} --- {${ refrigeranteFraco }; ${ runSuave }; ${ _gelo }} | min > ${ fracoMin2 } | max > ${ fracoMax }`
+    resultado.fraco3 = `{cocasuave(${refrigerante}); runFraco(${run}); gelo(${gelo})} --- {${ refrigeranteSuave }; ${ runFraco }; ${ _gelo }} | min > ${ fracoMin3 }`
 
     const maximo = Math.max(fracoMax, suaveMax, forteMax)
     const empate = count([fracoMax, suaveMax, forteMax], maximo) > 0
@@ -339,5 +330,8 @@ const iniciar = () => {
         paladar = getPaladar([fracoMax, suaveMax, forteMax], maximo)
     }
 
-    console.log(`Paladar: ${paladar}; R$: ${getPreco(paladar)}`)
+    resultado.paladar = paladar
+    resultado.preco = getPreco(paladar)
+
+    return resultado
 }
