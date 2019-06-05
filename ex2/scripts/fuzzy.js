@@ -6,7 +6,8 @@ const $nomeRefrigerante = document.getElementById('nome-refrigerante')
 const Paladar = {
     Fraco: 'fraco',
     Suave: 'suave',
-    Forte: 'forte'
+    Forte: 'forte',
+    Desconhecido: 'Não é Cuba livre'
 }
 
 const Tipo = {
@@ -21,7 +22,7 @@ const Refrigerante = {
 }
 
 const factory = item => {
-    let obj = new Item()
+    let obj = new Item(item)
 
     switch (item) {
         case Refrigerante.CocaCola: {
@@ -93,7 +94,7 @@ const factory = item => {
             
             linha = new Linha(28, 30, Paladar.Forte, Tipo.Reta)
             obj.addLinha(linha)
-
+            
             return obj
         }
         case 'Gelo': {            
@@ -208,7 +209,7 @@ const pertinenciaPepsiSuave = (x, linha) => {
     return 0
 }
 
-const pertinenciaPepsiFraca = (x, linha) => {
+const pertinenciaPepsiFraco = (x, linha) => {
     if (x < 66)
         return 0
     if (x >= 66 && x < 68)
@@ -219,9 +220,46 @@ const pertinenciaPepsiFraca = (x, linha) => {
 }
 
 const pertinenciaGelo = (x) => {
-    if (x == 20)
+    if (x === 20)
         return 1
     return 0
+}
+
+const count = (valores, val) => {
+    return valores.filter(item => item === val).length
+}
+
+const getPaladar = (vet, valor) => {
+    if (valor == 0)
+        return Paladar.Desconhecido
+
+    if (vet[0] == valor){
+        return Paladar.Fraco
+    } else if (vet[1] == valor){
+        return Paladar.Suave
+    }
+    return Paladar.Forte
+}
+
+const getPreco = (paladar) => {
+    switch(paladar){
+        case Paladar.Fraco:
+            return '15,00'
+        case Paladar.Suave:
+            return '20,00'
+        case Paladar.Forte:
+            return '25,00'
+        default:
+            return '30,00'
+    }
+}
+
+const soma = (...valores) => {
+    return valores.reduce((item, acc) => item + acc)
+}
+
+const getMedia = (...valores) => {
+    return soma(...valores) / valores.length
 }
 
 const iniciar = () => {
@@ -231,9 +269,9 @@ const iniciar = () => {
     validar0ate100($gelo, 'Gelo')
 
     // valores digitado pelo usuario
-    const refrigerante = parseInt($refrigerante.value)
-    const run = parseInt($run.value)
-    const gelo = parseInt($run.value)
+    const refrigerante = parseFloat($refrigerante.value)
+    const run = parseFloat($run.value)
+    const gelo = parseFloat($gelo.value)
 
     // linhas do grafico
     const graficoRefrigerante = factory($nomeRefrigerante.value)
@@ -241,9 +279,17 @@ const iniciar = () => {
     const linhaGelo = factory('Gelo')
 
     // Refrigerante
-    const refrigeranteFraco = $nomeRefrigerante.value === Refrigerante.CocaCola ? pertinenciaCocaFraco(refrigerante, graficoRefrigerante) : pertinenciaPepsiFraco(refrigerante, graficoRefrigerante)
-    const refrigeranteSuave = $nomeRefrigerante.value === Refrigerante.CocaCola ? pertinenciaCocaSuave(refrigerante, graficoRefrigerante) : pertinenciaPepsiSuave(refrigerante, graficoRefrigerante)
-    const refrigeranteForte = $nomeRefrigerante.value === Refrigerante.CocaCola ? pertinenciaCocaForte(refrigerante, graficoRefrigerante) : pertinenciaPepsiForte(refrigerante, graficoRefrigerante)
+    const refrigeranteFraco = $nomeRefrigerante.value === Refrigerante.CocaCola ? 
+        pertinenciaCocaFraco(refrigerante, graficoRefrigerante.getLinhaPorPaladar(refrigerante, Paladar.Fraco)) : 
+        pertinenciaPepsiFraco(refrigerante, graficoRefrigerante.getLinhaPorPaladar(refrigerante, Paladar.Fraco))
+
+    const refrigeranteSuave = $nomeRefrigerante.value === Refrigerante.CocaCola ? 
+        pertinenciaCocaSuave(refrigerante, graficoRefrigerante.getLinhaPorPaladar(refrigerante, Paladar.Suave)) : 
+        pertinenciaPepsiSuave(refrigerante, graficoRefrigerante.getLinhaPorPaladar(refrigerante, Paladar.Suave))
+
+    const refrigeranteForte = $nomeRefrigerante.value === Refrigerante.CocaCola ? 
+        pertinenciaCocaForte(refrigerante, graficoRefrigerante.getLinhaPorPaladar(refrigerante, Paladar.Forte)) : 
+        pertinenciaPepsiForte(refrigerante, graficoRefrigerante.getLinhaPorPaladar(refrigerante, Paladar.Forte))
 
     // Run
     const runFraco = pertinenciaRunFraco(run, graficoRun.getLinhaPorPaladar(run, Paladar.Fraco))
@@ -253,18 +299,45 @@ const iniciar = () => {
     // Gelo
     const _gelo = pertinenciaGelo(gelo)
 
+    const suaveMin1 = Math.min(refrigeranteForte, runFraco, _gelo)
+    const suaveMin2 = Math.min(refrigeranteSuave, runSuave, _gelo)
+    const suaveMin3 = Math.min(refrigeranteFraco, runForte, _gelo)
+    const suaveMax = Math.max(suaveMin1, suaveMin2, suaveMin3)
+    const suaveMedia = getMedia(suaveMin1, suaveMin2, suaveMin3)
     console.log('\nSuave:')
-    console.log(`{cocaforte(${refrigerante}); runFraco(${run}); gelo(${gelo})} --- {${ refrigeranteForte }; ${ runFraco }; ${ _gelo }} | min > ${ Math.min(refrigeranteForte, runFraco, _gelo) }`)
-    console.log(`{cocasuave(${refrigerante}); runsuave(${run}); gelo(${gelo})} --- {${ refrigeranteSuave }; ${ runSuave }; ${ _gelo }} | min > ${ Math.min(refrigeranteSuave, runSuave, _gelo) }`)
-    console.log(`{cocafraco(${refrigerante}); runForte(${run}); gelo(${gelo})} --- {${ refrigeranteFraco }; ${ runForte }; ${ _gelo }} | min > ${ Math.min(refrigeranteFraco, runForte, _gelo) }`)
+    console.log(`{cocaforte(${refrigerante}); runFraco(${run}); gelo(${gelo})} --- {${ refrigeranteForte }; ${ runFraco }; ${ _gelo }} | min > ${ suaveMin1 }`)
+    console.log(`{cocasuave(${refrigerante}); runsuave(${run}); gelo(${gelo})} --- {${ refrigeranteSuave }; ${ runSuave }; ${ _gelo }} | min > ${ suaveMin2 } | max > ${ suaveMax }`)
+    console.log(`{cocafraco(${refrigerante}); runForte(${run}); gelo(${gelo})} --- {${ refrigeranteFraco }; ${ runForte }; ${ _gelo }} | min > ${ suaveMin3 }`)
 
+    const forteMin1 = Math.min(refrigeranteForte, runSuave, _gelo)
+    const forteMin2 = Math.min(refrigeranteForte, runForte, _gelo)
+    const forteMin3 = Math.min(refrigeranteSuave, runForte, _gelo)
+    const forteMax = Math.max(forteMin1, forteMin2, forteMin3)
+    const forteMedia = getMedia(forteMin1, forteMin2, forteMin3)
     console.log('\nForte:')
-    console.log(`{cocaforte(${refrigerante}); runFraco(${run}); gelo(${gelo})} --- {${ refrigeranteForte }; ${ runSuave }; ${ _gelo }} | min > ${ Math.min(refrigeranteForte, runSuave, _gelo) }`)
-    console.log(`{cocasuave(${refrigerante}); runsuave(${run}); gelo(${gelo})} --- {${ refrigeranteForte }; ${ runForte }; ${ _gelo }} | min > ${ Math.min(refrigeranteForte, runForte, _gelo) }`)
-    console.log(`{cocafraco(${refrigerante}); runForte(${run}); gelo(${gelo})} --- {${ refrigeranteSuave }; ${ runForte }; ${ _gelo }} | min > ${ Math.min(refrigeranteSuave, runForte, _gelo) }`)
+    console.log(`{cocaforte(${refrigerante}); runsuave(${run}); gelo(${gelo})} --- {${ refrigeranteForte }; ${ runSuave }; ${ _gelo }} | min > ${ forteMin1 }`)
+    console.log(`{cocaforte(${refrigerante}); runForte(${run}); gelo(${gelo})} --- {${ refrigeranteForte }; ${ runForte }; ${ _gelo }} | min > ${ forteMin2 } | max > ${ forteMax }`)
+    console.log(`{cocasuave(${refrigerante}); runForte(${run}); gelo(${gelo})} --- {${ refrigeranteSuave }; ${ runForte }; ${ _gelo }} | min > ${ forteMin3 }`)
 
-    console.log('\Fraco:')
-    console.log(`{cocaforte(${refrigerante}); runFraco(${run}); gelo(${gelo})} --- {${ refrigeranteFraco }; ${ runFraco }; ${ _gelo }} | min > ${ Math.min(refrigeranteFraco, runFraco, _gelo) }`)
-    console.log(`{cocasuave(${refrigerante}); runsuave(${run}); gelo(${gelo})} --- {${ refrigeranteFraco }; ${ runSuave }; ${ _gelo }} | min > ${ Math.min(refrigeranteFraco, runSuave, _gelo) }`)
-    console.log(`{cocafraco(${refrigerante}); runForte(${run}); gelo(${gelo})} --- {${ refrigeranteSuave }; ${ runFraco }; ${ _gelo }} | min > ${ Math.min(refrigeranteSuave, runForte, _gelo) }`)
+    const fracoMin1 = Math.min(refrigeranteFraco, runFraco, _gelo)
+    const fracoMin2 = Math.min(refrigeranteFraco, runSuave, _gelo)
+    const fracoMin3 = Math.min(refrigeranteSuave, runFraco, _gelo)
+    const fracoMax = Math.max(fracoMin1, fracoMin2, fracoMin3)
+    const fracoMedia = getMedia(fracoMin1, fracoMin2, fracoMin3)
+    console.log('\nFraco:')
+    console.log(`{cocafraco(${refrigerante}); runFraco(${run}); gelo(${gelo})} --- {${ refrigeranteFraco }; ${ runFraco }; ${ _gelo }} | min > ${ fracoMin1 }`)
+    console.log(`{cocafraco(${refrigerante}); runsuave(${run}); gelo(${gelo})} --- {${ refrigeranteFraco }; ${ runSuave }; ${ _gelo }} | min > ${ fracoMin2 } | max > ${ fracoMax }`)
+    console.log(`{cocasuave(${refrigerante}); runFraco(${run}); gelo(${gelo})} --- {${ refrigeranteSuave }; ${ runFraco }; ${ _gelo }} | min > ${ fracoMin3 }`)
+
+    const maximo = Math.max(fracoMax, suaveMax, forteMax)
+    const empate = count([fracoMax, suaveMax, forteMax], maximo) > 0
+
+    let paladar = ''
+    if (empate) {
+        paladar = getPaladar([fracoMedia, suaveMedia, forteMedia], Math.max(fracoMedia, suaveMedia, forteMedia))
+    }else {
+        paladar = getPaladar([fracoMax, suaveMax, forteMax], maximo)
+    }
+
+    console.log(`Paladar: ${paladar}; R$: ${getPreco(paladar)}`)
 }

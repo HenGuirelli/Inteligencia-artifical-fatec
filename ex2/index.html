@@ -9,21 +9,61 @@
             <option value="coca-cola">Coca cola</option>
             <option value="pepsi">Pepsi</option>
         </select>
+        <br>
 
         <label for="txtRefrigerante">Refrigerante</label>
         <input name="txtRefrigerante" type="number" id="refrigerante">
+        <br>
 
         <label for="txtRun">Run</label>
         <input name="txtRun" type="number" id='run'>
+        <br>
 
         <label for="txtGelo">Gelo</label>
         <input name="txtGelo" type="number" id='gelo'>
+        <br>
 
         <button onclick="iniciar()">Calcular</button>
+
+        <hr />
+
+        <div>
+            <h1></h1>
+
+            <div>
+                <div class="fraco-linha"></div>
+                <div class="fraco-linha"></div>
+                <div class="fraco-linha"></div>
+            </div>
+        </div>
+
+        <div>
+            <h1></h1>
+
+            <div>
+                <div class="suave-linha"></div>
+                <div class="suave-linha"></div>
+                <div class="suave-linha"></div>
+            </div>
+        </div>
+
+        <div>
+            <h1></h1>
+
+            <div>
+                <div class="forte-linha"></div>
+                <div class="forte-linha"></div>
+                <div class="forte-linha"></div>
+            </div>
+        </div>
+
+        <h1 class='resposta'></h1>
+
     </body>
 
     
     <script src="scripts/model.js"></script>
     <script src="scripts/valiadacao.js"></script>
     <script src="scripts/fuzzy.js"></script>
+    <script src="scripts/view.js"></script>
 </html>

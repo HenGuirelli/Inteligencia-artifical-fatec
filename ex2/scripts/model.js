@@ -8,8 +8,9 @@ class Linha {
 }
 
 class Item {
-    constructor(){
+    constructor(nome){
         this.linhas = []
+        this.nome = nome
     }
 
     addLinha(linha){

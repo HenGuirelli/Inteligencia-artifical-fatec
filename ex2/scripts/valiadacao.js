@@ -11,7 +11,7 @@ const validar0ate100 = ($campo, nomeCampo = '') => {
     if (ehNullOuUndefined($campo)){
         alert(`${nomeCampo} é nulo`)
     }else {
-        const valor = parseInt($campo.value)
+        const valor = parseFloat($campo.value)
 
         if (!estaNoIntervalo(valor, 0, 100)) {
             const texto = `${nomeCampo} Deve estar entre 0 e 100`
