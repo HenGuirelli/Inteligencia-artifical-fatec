@@ -1,0 +1,30 @@
+.alinhado {
+    display: inline-block;
+}
+
+.expressao, 
+.calculos, 
+.minimo,
+.titulo-expressao,
+.titulo-calculos,
+.titulo-minimo {
+    border: solid 1px;    
+}
+
+.titulo-expressao,
+.titulo-calculos,
+.titulo-minimo {
+    background-color: #7aadff;
+}
+
+.expressao, .titulo-expressao {
+    width: 300px;
+}
+
+.calculos, .titulo-calculos {
+    width: 400px;
+}
+
+.minimo, .titulo-minimo {
+    width: 200px;
+}

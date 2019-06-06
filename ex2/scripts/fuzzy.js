@@ -267,6 +267,10 @@ const calcular = () => {
     const run = parseFloat($run.value)
     const gelo = parseFloat($gelo.value)
 
+    resultado.refrigerante = refrigerante
+    resultado.run = run
+    resultado.gelo = gelo
+
     // linhas do grafico
     const graficoRefrigerante = factory($nomeRefrigerante.value)
     const graficoRun = factory('Run')
@@ -293,39 +297,60 @@ const calcular = () => {
     // Gelo
     const _gelo = pertinenciaGelo(gelo)
 
+    resultado.refrigeranteFraco = refrigeranteFraco
+    resultado.refrigeranteSuave = refrigeranteSuave
+    resultado.refrigeranteForte = refrigeranteForte
+
+    resultado.runFraco = runFraco
+    resultado.runSuave = runSuave
+    resultado.runForte = runForte
+
+    resultado._gelo = _gelo
+
     const suaveMin1 = Math.min(refrigeranteForte, runFraco, _gelo)
     const suaveMin2 = Math.min(refrigeranteSuave, runSuave, _gelo)
     const suaveMin3 = Math.min(refrigeranteFraco, runForte, _gelo)
     const suaveMax = Math.max(suaveMin1, suaveMin2, suaveMin3)
     const suaveMedia = getMedia(suaveMin1, suaveMin2, suaveMin3)
-    resultado.suave1 = `{cocaforte(${refrigerante}); runFraco(${run}); gelo(${gelo})} --- {${ refrigeranteForte }; ${ runFraco }; ${ _gelo }} | min > ${ suaveMin1 }`
-    resultado.suave2 = `{cocasuave(${refrigerante}); runsuave(${run}); gelo(${gelo})} --- {${ refrigeranteSuave }; ${ runSuave }; ${ _gelo }} | min > ${ suaveMin2 } | max > ${ suaveMax }`
-    resultado.suave3 = `{cocafraco(${refrigerante}); runForte(${run}); gelo(${gelo})} --- {${ refrigeranteFraco }; ${ runForte }; ${ _gelo }} | min > ${ suaveMin3 }`
+    resultado.suaveMin1 = suaveMin1
+    resultado.suaveMin2 = suaveMin2
+    resultado.suaveMin3 = suaveMin3
+    resultado.suaveMaximo = suaveMax
+    resultado.suaveMedia = suaveMedia
 
     const forteMin1 = Math.min(refrigeranteForte, runSuave, _gelo)
     const forteMin2 = Math.min(refrigeranteForte, runForte, _gelo)
     const forteMin3 = Math.min(refrigeranteSuave, runForte, _gelo)
     const forteMax = Math.max(forteMin1, forteMin2, forteMin3)
     const forteMedia = getMedia(forteMin1, forteMin2, forteMin3)
-    resultado.forte1 = `{cocaforte(${refrigerante}); runsuave(${run}); gelo(${gelo})} --- {${ refrigeranteForte }; ${ runSuave }; ${ _gelo }} | min > ${ forteMin1 }`
-    resultado.forte2 = `{cocaforte(${refrigerante}); runForte(${run}); gelo(${gelo})} --- {${ refrigeranteForte }; ${ runForte }; ${ _gelo }} | min > ${ forteMin2 } | max > ${ forteMax }`
-    resultado.forte3 = `{cocasuave(${refrigerante}); runForte(${run}); gelo(${gelo})} --- {${ refrigeranteSuave }; ${ runForte }; ${ _gelo }} | min > ${ forteMin3 }`
+    resultado.forteMin1 = forteMin1
+    resultado.forteMin2 = forteMin2
+    resultado.forteMin3 = forteMin3
+    resultado.forteMaximo = forteMax
+    resultado.forteMedia = forteMedia
 
     const fracoMin1 = Math.min(refrigeranteFraco, runFraco, _gelo)
     const fracoMin2 = Math.min(refrigeranteFraco, runSuave, _gelo)
     const fracoMin3 = Math.min(refrigeranteSuave, runFraco, _gelo)
     const fracoMax = Math.max(fracoMin1, fracoMin2, fracoMin3)
     const fracoMedia = getMedia(fracoMin1, fracoMin2, fracoMin3)
-    resultado.fraco1 = `{cocafraco(${refrigerante}); runFraco(${run}); gelo(${gelo})} --- {${ refrigeranteFraco }; ${ runFraco }; ${ _gelo }} | min > ${ fracoMin1 }`
-    resultado.fraco2 = `{cocafraco(${refrigerante}); runsuave(${run}); gelo(${gelo})} --- {${ refrigeranteFraco }; ${ runSuave }; ${ _gelo }} | min > ${ fracoMin2 } | max > ${ fracoMax }`
-    resultado.fraco3 = `{cocasuave(${refrigerante}); runFraco(${run}); gelo(${gelo})} --- {${ refrigeranteSuave }; ${ runFraco }; ${ _gelo }} | min > ${ fracoMin3 }`
+    resultado.fracoMin1 = fracoMin1
+    resultado.fracoMin2 = fracoMin2
+    resultado.fracoMin3 = fracoMin3
+    resultado.fracoMaximo = fracoMax
+    resultado.fracoMedia = fracoMedia
 
     const maximo = Math.max(fracoMax, suaveMax, forteMax)
-    const empate = count([fracoMax, suaveMax, forteMax], maximo) > 0
+    const empate = count([fracoMax, suaveMax, forteMax], maximo) > 1 && maximo !== 0
+    const maximoDasMedias = Math.max(fracoMedia, suaveMedia, forteMedia)
+
+    resultado.maximo = maximo
+    resultado.empate = empate
+    resultado.maximoDasMedias = maximoDasMedias
 
     let paladar = ''
     if (empate) {
-        paladar = getPaladar([fracoMedia, suaveMedia, forteMedia], Math.max(fracoMedia, suaveMedia, forteMedia))
+        paladar = getPaladar([fracoMedia, suaveMedia, forteMedia], maximoDasMedias)
     }else {
         paladar = getPaladar([fracoMax, suaveMax, forteMax], maximo)
     }

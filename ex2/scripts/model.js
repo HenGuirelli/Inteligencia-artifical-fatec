@@ -25,19 +25,47 @@ class Item {
 
 class ResultadoFuzzy {
     constructor() {
-        this.suave1 = ''
-        this.suave2 = ''
-        this.suave3 = ''
+        // valores do usuario
+        this.refrigerante = ''
+        this.run = ''
+        this.gelo = ''
 
-        this.fraco1 = ''
-        this.fraco2 = ''
-        this.fraco3 = ''
-        
-        this.forte1 = ''
-        this.forte2 = ''
-        this.forte3 = ''
+        this.maximo = ''
+        this.empate = false
+        this.maximoDasMedias = ''
 
         this.paladar = ''
         this.preco = ''
+
+        // expressoes
+        this.suaveMin1 = ''
+        this.suaveMin2 = ''
+        this.suaveMin3 = ''
+        this.suaveMaximo = ''
+        this.suaveMedia = ''
+
+        this.forteMin1 = ''
+        this.forteMin2 = ''
+        this.forteMin3 = ''
+        this.forteMaximo = ''
+        this.forteMedia = ''
+
+        this.fracoMin1 = ''
+        this.fracoMin2 = ''
+        this.fracoMin3 = ''
+        this.fracoMaximo = ''
+        this.fracoMedia = ''
+
+        // valores calculados
+        this.refrigeranteFraco = ''
+        this.refrigeranteSuave = ''
+        this.refrigeranteForte = ''
+    
+        this.runFraco = ''
+        this.runSuave = ''
+        this.runForte = ''
+    
+        this._gelo = ''
+
     }
 }
